@@ -1,0 +1,44 @@
+
+
+.like{
+  cursor: pointer;
+  /* display: inline-flex; */
+  /* justify-content: center; */
+  /* align-items: center; */
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  /* transition: background .6s; */
+}
+
+.like [type="checkbox"]{
+  display: none;
+}
+
+.favorite {
+  font-size: 25px;
+  color: #dcdbdb;
+  user-select: none;
+  position: relative;
+  top: 1px;
+}
+
+.like [type="checkbox"]:checked ~ .favorite{
+  animation-name: favorite;
+  animation-duration: .3s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes favorite {
+  0%{
+      transform: scale(0);
+  }
+  50%{
+      transform: scale(1.1);
+      opacity: 0.5;
+  }
+  100%{
+      transform: scale(1);
+      color: rgb(202, 30, 30);
+  }
+}
