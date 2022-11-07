@@ -94,8 +94,9 @@ export const TelInput = (props: any) => {
 
         </div>
         <div>
-          <input type="text" className="name border mr-4 py-1 px-3 rounded-md w-full " id="name" required style={{ width: "430px" }}
+          <input type="text" className="name border mr-4 py-1 px-3 rounded-md w-full focus:outline-none focus:ring-2 z-1 h-10" id="name" required style={{ width: "430px" }}
             onChange={onChangeHandler}
+            placeholder="例）123-1234-1234"
           />
         </div>
         <Navigation text="-（ハイフン）を含む形式" value={props.telValue} />

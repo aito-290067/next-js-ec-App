@@ -54,9 +54,9 @@ export const NameInput = (props: any) => {
             errorFlag={props.errorFlag} />
         </div>
         <div>
-          <input type="text" className="name border mr-4 py-1 px-3 rounded-md    focus:border focus:border-gray-100 
-              " id="nameForm" placeholder="姓" required onChange={onChangeHandlerLast} />
-          <input type="text" className="name border mr-4 py-1 px-3 rounded-md" id="nameForm" placeholder="名" required onChange={onChangeHandlerFirst} />
+          <input type="text" className="name border mr-4 py-1 px-3 rounded-md    focus:border focus:border-gray-100  focus:outline-none focus:ring-2 z-1 h-10
+              " id="nameForm" placeholder="例）田中" required onChange={onChangeHandlerLast} />
+          <input type="text" className="name border mr-4 py-1 px-3 rounded-md focus:outline-none focus:ring-2 z-1 h-10" id="nameForm" placeholder="例）太郎" required onChange={onChangeHandlerFirst} />
         </div>
       </div>
     </>
