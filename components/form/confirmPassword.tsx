@@ -54,7 +54,9 @@ export const ConfirmPasswordInput = (props: any) => {
               errorFlag={props.errorFlag}/>
             </div>
             <div>
-              <input type="text" className="name border mr-4 py-1 px-3 rounded-md w-full " id="name" required style={{ width: "430px" }} onChange={onChangeHandler} />
+              <input type="password" className="name border mr-4 py-1 px-3 rounded-md w-full focus:outline-none focus:ring-2 z-1 h-10" id="name" required style={{ width: "430px" }} onChange={onChangeHandler}
+              placeholder="例）Password123"
+              />
             </div>
           </div>
     </>

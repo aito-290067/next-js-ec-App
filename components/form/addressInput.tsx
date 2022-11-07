@@ -87,7 +87,11 @@ export const AddressInput = (props: any) => {
               errorFlag={ props.errorFlag} />
             </div>
             <div>
-              <input type="text" className="name border mr-4 py-1 px-3 rounded-md w-full " id="name" required style={{ width: "430px" }} onChange={onChangeHandler}/>
+              <input type="text" className="name border mr-4 py-1 px-3 rounded-md w-full h-10 focus:outline-none focus:ring-2 z-1" id="name" required style={{ width: "430px" }} onChange={onChangeHandler}
+              placeholder="例）東京都中央区"
+              />
+              
+
             </div>
           </div>
     </>

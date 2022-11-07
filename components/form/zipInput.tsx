@@ -103,7 +103,9 @@ export const ZipInput = (props: any) => {
 
         </div>
         <div>
-          <input type="text" className="name border mr-4 py-1 px-3 rounded-md w-full " id="name" required style={{ width: "230px" }} onChange={onChangeHandler} />
+          <input type="text" className="name border mr-4 py-1 px-3 rounded-md w-full focus:outline-none focus:ring-2 z-1 h-10" id="name" required style={{ width: "230px" }} onChange={onChangeHandler}
+          placeholder="例）123-1234"
+          />
         </div>
 
         <Navigation text="-（ハイフン）を含む形式" value={props.zipValue} />

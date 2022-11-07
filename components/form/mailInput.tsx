@@ -46,8 +46,8 @@ const Navigation = (props: any) => {
   }
 }
 
-const Error2 = (props: any) => {
-  if (props.errorFlag === "true" ) {
+const Error = (props: any) => {
+  if (props.errorFlag === "true") {
     if (props.value === "empty" || props.value === "init") {
       return (
         <>
@@ -68,31 +68,31 @@ const Error2 = (props: any) => {
 
 
 
-export const MailInput = (props: { SetMailErrorState:any, SetMailValue: any ,errorFlag:any,mailErrorState :any, mailValue:any ,displayFlag:any}) => {
+export const MailInput = (props: { SetMailErrorState: any, SetMailValue: any, errorFlag: any, mailErrorState: any, mailValue: any, displayFlag: boolean }) => {
 
   const onChangeHandler = (ev: ChangeEvent<HTMLInputElement>) => {
     props.SetMailValue(ev.target.value);
-    
-    if(!(ev.target.value)){
-      props.SetMailErrorState("empty");  
-    }else if(!(ev.target.value.includes("@"))){
-      props.SetMailErrorState("format-inccorect");  
-    }else{
-      props.SetMailErrorState("ok");  
-    }
- }
 
- const NavigationDisplay = (props :any) =>{
-  if(props.displayFlag === "true"){
-    return(
-      <>
-        <Navigation value={props.mailValue} text="@を含む形式" />
-      </>
-    )
-    }else{
+    if (!(ev.target.value)) {
+      props.SetMailErrorState("empty");
+    } else if (!(ev.target.value.includes("@"))) {
+      props.SetMailErrorState("format-inccorect");
+    } else {
+      props.SetMailErrorState("ok");
+    }
+  }
+
+  const NavigationDisplay = (props: any) => {
+    if (props.displayFlag === true) {
+      return (
+        <>
+          <Navigation value={props.mailValue} text="@を含む形式" />
+        </>
+      )
+    } else {
       return <></>
     }
-}
+  }
 
   return (
     <>
@@ -100,17 +100,19 @@ export const MailInput = (props: { SetMailErrorState:any, SetMailValue: any ,err
         <div className="mb-2">
           <label htmlFor="name">メールアドレス </label>
           <span className="bg-red-600 rounded-md p-1 text-sm text-white " style={{ fontSize: "12px" }}>必須</span>
-          <Error2
+          <Error
             value={props.mailErrorState}
             text="メールアドレスを入力してください"
             SetMailErrorState={props.SetMailErrorState}
             errorFlag={props.errorFlag} />
         </div>
         <div>
-          <input type="text" className="name border mr-4 py-1 px-3 rounded-md w-full " id="name" required style={{ width: "430px" }} onChange={onChangeHandler} />
+          <input type="text" className="name border mr-4 py-1 px-3 rounded-md w-full focus:outline-none focus:ring-2 z-1 h-10" id="name" required style={{ width: "430px" }} onChange={onChangeHandler} 
+          placeholder="例）mail@example.com"
+          />
         </div>
 
-        <NavigationDisplay displayFlag={props.displayFlag} />
+        <NavigationDisplay displayFlag={props.displayFlag} mailValue={props.mailValue} />
 
       </div>
     </>

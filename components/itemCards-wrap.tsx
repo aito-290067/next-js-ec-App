@@ -23,7 +23,9 @@ export const ItemCardsWrap = (props: any) => {
       <div className="px-4 mt-3  flex">
         <Link href={`/items/${props.id}`}>
           <a>
-            <p className="mb-2  text-md font-nomal tracking-tight text-gray-800 dark:text-white overflow-hidden">
+            <p className="mb-2  text-md font-nomal tracking-tight 
+            w-32
+            text-gray-800 dark:text-white overflow-hidden">
               {props.name}
             </p>
           </a>
@@ -35,6 +37,8 @@ export const ItemCardsWrap = (props: any) => {
       <h5 className="mb-3 text-lg font-bold text-gray-500 dark:text-gray-400 text-center">
         {props.price}円（税込）
       </h5>
+
+      
     </div>
   );
 }
@@ -76,7 +80,7 @@ export const ItemCardsWrapRecognize = (props: any) => {
         {props.price}円（税込）
       </h5>
 
-      <button className={`text-center text-white rounded-lg ml-2 ${style.recognizeButton}`}>カートに入れる</button>
+      {/* <button className={`text-center text-white rounded-lg ml-2 ${style.recognizeButton}`}>カートに入れる</button> */}
     </div>
   );
 }
