@@ -1,8 +1,11 @@
 import { Category } from '@material-ui/icons'
 import React from 'react'
+import { useRouter } from "next/router";
 
 
 export const SearchCategoryList = (props: any) => {
+
+  const router = useRouter();
 
   // 最初のカテゴリ以外のリスト（スタイルが違うため）
   const categoryList = ["生花", "多肉植物", "アレンジメント", "花束・ブーケ", "スワッグ", "フラワーリース", "スタンド花","花瓶・フラワーベース"]
@@ -18,6 +21,10 @@ export const SearchCategoryList = (props: any) => {
             <button type="button" 
             className="border-none"
             onClick={() => {
+              router.push({
+                pathname: "/items",
+                query: { category: "観葉植物" } 
+              });
               props.setCategoryWord(`観葉植物`)
             }}>
               観葉植物
@@ -30,6 +37,7 @@ export const SearchCategoryList = (props: any) => {
                 <button type="button" 
                 className="border-none"
                 onClick={() => {
+                  
                   props.setCategoryWord(`${CategoryData}`)
                 }}>
                   {CategoryData}

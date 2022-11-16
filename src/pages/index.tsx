@@ -20,6 +20,8 @@ import { SlideCursor } from "components/Molecules/swiperCursor";
 const fetcher = (url: any) => fetch(url).then((res) => res.json());
 
 export const Home = () => {
+// 別の方法を考える SearchNavigationbarで必要
+  const [categoryWord, setCategoryWord] = useState();
 
   const router = useRouter();
   const { data, error, mutate } = useSWR(
@@ -54,7 +56,7 @@ export const Home = () => {
         <main className="mb-5 container flex flex-wrap justify-center items-center mx-auto ">
           <div className=" flex " style={{ height: "100%" }} >
             <div className="hidden xl:flex xl:felx-nowrap xl:justify-start mx-auto">
-              <SearchNavigationbar />
+              <SearchNavigationbar setCategoryWord={setCategoryWord} categoryWord={categoryWord} />
             </div>
 
             <div className="float-right " style={{ height: "100%" }} >

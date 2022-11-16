@@ -16,13 +16,17 @@ import ModalWindow from "../../../components/Organisms/modal"
 const fetcher = (url: any) => fetch(url).then((res) => res.json());
 
 export const Home = () => {
+  
+
   const [searchWord, setSearchWord] = useState("")
   // 検索フォームでEnterが押されたかどうか
   const [searchState, setSearchState] = useState(false) 
   const [categoryWord, setCategoryWord] = useState("") 
- 
-
+  
   const router = useRouter();
+  
+  console.log(router.query.category)
+  
   const { data, error, mutate } = useSWR(
     `http://localhost:8000/items`,
     fetcher
