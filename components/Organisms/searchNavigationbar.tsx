@@ -4,13 +4,13 @@ import { Calendar } from '../Molecules/calendar'
 import { SearchCategoryList } from './searchCategoryList'
 import { BannerList } from './bannerList'
 
-export const SearchNavigationbar = () => {
+export const SearchNavigationbar = (props:any) => {
   return (
     <>
       <div className="md:mr-2 mt-2 pr-24 pt-12  xl:w-72 " >
-        <SearchCategoryList />
+        <SearchCategoryList setCategoryWord={props.setCategoryWord} categoryWord={props.categoryWord} />
         <BannerList />
-        <Calendar />
+        {/* <Calendar /> */}
       </div>
     </>
   )
