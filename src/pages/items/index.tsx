@@ -38,8 +38,9 @@ export const Home = () => {
     </>
   );
 
+  // エラー表示
   const ErrorMessage = () => {
-    if (itemList.length === 0 && searchState === true) {
+    if (categoryitemList.length === 0 ) {
 
       return (
         <>
@@ -51,8 +52,9 @@ export const Home = () => {
     }
   }
 
+  // 該当商品がない場合、全ての商品を表示
   const SearchItemsNone = (props: any) => {
-    if (itemList.length === 0 && searchState === true) {
+    if (categoryitemList.length === 0) {
       return (
         <>
           {data.map((itemData: any, index: number) => {
@@ -161,26 +163,6 @@ export const Home = () => {
           2xl:grid-cols-5
           
       ">
-
-              {/* {
-                data.map((itemData: any, index: number) => {
-                  if (searchState === true) {
-                    if (itemData.name.match(searchWord)) {
-                      return (
-                        <ItemCardsWrap name={itemData.name} price={itemData.price} imagePath={itemData.imagePath} key={index} id={itemData.id} />
-                      )
-                    } else {
-                      return (
-                        <React.Fragment key={index}></React.Fragment>
-                      )
-                    }
-                  } else {
-                    return (
-                      <ItemCardsWrap name={itemData.name} price={itemData.price} imagePath={itemData.imagePath} key={index} id={itemData.id} />
-                    )
-                  }
-                })
-              } */}
               {
                 categoryitemList.map((itemData: any, index: number) => {
                   return(
@@ -188,9 +170,6 @@ export const Home = () => {
                     )
                 })
               }
-
-
-
               <SearchItemsNone />
 
             </div>
