@@ -50,12 +50,22 @@ const ItemCardsSideQuentity = (props: { quentity: number | string }) => {
   )
 }
 
-const ItemCardsSideCount = (props: { count: number }) => {
+const ItemCardsSideCount = (props:any) => {
+  // quantityAdd={quantityAdd}
+  // setQuantityAdd={setQuantityAdd}
   return (
     <>
-      <button className={`float-right text-blue-500 border border-gray-200 rounded-l-sm bg-gray-100 text-center  w-6`}>－</button>
-      <div className={`float-right border-y border-gray-200  w-7 text-center `} >{props.count}</div>
-      <button className={`float-right  text-blue-500 border border-gray-200 rounded-r-sm bg-gray-100 text-center  w-6`}>＋</button>
+      <button className={`float-right text-blue-500 border border-gray-200 rounded-l-sm bg-gray-100 text-center  w-6`}
+      onClick={()=>{
+        props.setQuantityAdd(Number(props.quantityAdd) - 1)
+      }}
+      >－</button>
+      <div className={`float-right border-y border-gray-200  w-7 text-center `} >{props.quantity}</div>
+      <button className={`float-right  text-blue-500 border border-gray-200 rounded-r-sm bg-gray-100 text-center  w-6`}
+      onClick={()=>{
+        props.setQuantityAdd(Number(props.quantityAdd) + 1)
+      }}
+      >＋</button>
     </>
   )
 }
@@ -88,7 +98,11 @@ export const ItemCardsSide = (props: any) => {
         <ItemCardsSidePrice price={props.price} />
 
         <div className=' container flex flex-wrap justify-center items-center '>
-          <ItemCardsSideCount count={props.quantity} />
+          <ItemCardsSideCount 
+          quantity={props.quantity}
+          quantityAdd={props.quantityAdd}
+          setQuantityAdd={props.setQuantityAdd}
+          />
         </div>
         <button className={`mx-6 text-gray-500 ${style.deleteButtonItemCards}`}> 削除</button>
       </>

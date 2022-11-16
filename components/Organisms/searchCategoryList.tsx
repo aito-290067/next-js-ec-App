@@ -1,7 +1,6 @@
 import { Category } from '@material-ui/icons'
 import React from 'react'
 
-// setCategoryWord
 
 export const SearchCategoryList = (props: any) => {
 

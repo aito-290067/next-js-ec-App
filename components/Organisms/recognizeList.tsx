@@ -39,7 +39,7 @@ export const RecognizeList = (props:any) => {
   return (
     <>
 
-      <div className={` mt-5`}>
+      <div className={` my-5`}>
         <h5 className='mb-5'>{props.title}</h5>
         <div className='flex  '>
           {

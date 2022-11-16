@@ -6,14 +6,28 @@ import { ItemCardsWrapRecognize } from "../Organisms/itemCards-wrap";
 import style from "../../src/styles/shoppingCart.module.css"
 import Image from 'next/image';
 import Head from 'next/head';
+import { useEffect, useState } from 'react';
 
 
 export const ShoppingList = (props: any) => {
+  const [quantityAdd, setQuantityAdd] = useState(0)
+  
+  // カートの商品の金額を配列に入れる
+  const priceList:any = [];
+    props.data.map((itemData:any, index:number)=>{
+      priceList.push(itemData.price * itemData.quantity)
+    })
+
+  //合計金額算出 
+    let totalPrice = priceList.reduce(function(sum:number, element:number){
+      return Number(sum) + Number(element);
+    }, 0);
+
+
 
   return (
     <>
       <div className="container flex flex-col justify-center items-center mx-auto py-5 px-5 ">
-        {/* <h1 className='flex font-bold text-2xl mb-8'>{props.title}</h1> */}
 
         {
           props.data.map((shoppingItems: {
@@ -23,9 +37,8 @@ export const ShoppingList = (props: any) => {
             quantity: number
           },
             index: number) => {
-              console.log(shoppingItems.quantity)
+    
             return (
-
               <div className={` mb-1 grid sm:gap-1 grid-cols-5 rounded-md ${style.gridWidth} 
                         `} key={index}>
                 <ItemCardsSide
@@ -34,6 +47,8 @@ export const ShoppingList = (props: any) => {
                   price={shoppingItems.price}
                   quantity={shoppingItems.quantity}
                   pageName={props.pageName}
+                  quantityAdd={quantityAdd}
+                  setQuantityAdd={setQuantityAdd}
                 />
               </div>
 
@@ -44,7 +59,7 @@ export const ShoppingList = (props: any) => {
 
         <hr className={`${style.line}`} />
         <div className=" py-5 px-5 ">
-          <p>合計金額&nbsp;&nbsp;&nbsp;￥<span className="text-lg">7000</span></p>
+          <p>合計金額&nbsp;&nbsp;&nbsp;￥<span className="text-lg">{totalPrice}</span></p>
         </div>
 
       </div>

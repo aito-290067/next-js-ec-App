@@ -58,7 +58,7 @@ export const Home = () => {
   return (
     <>
 
-      <div>
+      <div className="mb-7">
         <div className=" flex flex-wrap justify-center items-center mt-7">
           <h1 className="text-bold" style={{ color: "#75ad9d", fontSize: "30px" }}>ショッピングカート</h1>
         </div>
