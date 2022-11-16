@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Favorite } from "./favorite";
-import style from "../src/styles/itemListWrap.module.css"
+import { Favorite } from "../Molecules/favorite";
+import style from "../../src/styles/itemListWrap.module.css"
 
 export const ItemCardsWrap = (props: any) => {
   return (
@@ -23,7 +23,7 @@ export const ItemCardsWrap = (props: any) => {
       <div className="px-4 mt-3  flex">
         <Link href={`/items/${props.id}`}>
           <a>
-            <p className="mb-2  text-md font-nomal tracking-tight 
+            <p className="mb-2  text-sm font-nomal tracking-tight 
             w-32
             text-gray-800 dark:text-white overflow-hidden">
               {props.name}
@@ -48,7 +48,7 @@ export const ItemCardsWrapRecognize = (props: any) => {
   let id = props.id
   return (
 
-    <div className="w-32 h-70 cursor-pointer mx-1 ">
+    <div className="w-24 sm:w-32 h-48 sm:h-70 cursor-pointer mx-1 ">
       <Link href={`/items/${id}`}>
         <a>
           <Image
@@ -77,7 +77,7 @@ export const ItemCardsWrapRecognize = (props: any) => {
       </div>
 
       <h5 className="mb-3 text-sm text-gray-500 text-center">
-        {props.price}円（税込）
+        {props.price}円<span className="block sm:inline-block">（税込）</span>
       </h5>
 
       {/* <button className={`text-center text-white rounded-lg ml-2 ${style.recognizeButton}`}>カートに入れる</button> */}

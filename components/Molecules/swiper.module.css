@@ -31,15 +31,10 @@
 
 */
 
-.buttonNext{
-  color: red;
-  background-color: blue;
-}
 
 .custom_bullet {
   background: white;
   opacity: 0.5;
-  color: red;
 } 
 
 .custom_bullet_active {

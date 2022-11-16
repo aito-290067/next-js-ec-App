@@ -4,7 +4,7 @@ export const Map = () => {
   return (
     <>
       <section className="my-12">
-        <h2 className="items-center justify-center flex flex-wrap  mt-5  text-2xl">Map</h2>
+        <h2 className="items-center justify-center flex flex-wrap  mt-5  text-2xl">アクセス</h2>
 
 
         <div className="items-center justify-center flex flex-wrap  my-5">

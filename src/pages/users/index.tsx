@@ -1,15 +1,15 @@
 import React from 'react'
 import style from "../../styles/input.module.css"
-import { GreenButton } from 'components/greenButton'
+import { GreenButton } from 'components/Atoms/greenButton'
 import { useState } from 'react'
-import { MailInput } from 'components/form/mailInput'
-import { TelInput } from 'components/form/telInput'
-import { ZipInput } from 'components/form/zipInput'
-import { AddressInput } from 'components/form/addressInput'
-import { PasswordInput } from 'components/form/passwordInput'
-import { NameInput } from 'components/form/nameInput'
+import { MailInput } from 'components/Organisms/form/mailInput'
+import { TelInput } from 'components/Organisms/form/telInput'
+import { ZipInput } from 'components/Organisms/form/zipInput'
+import { AddressInput } from 'components/Organisms/form/addressInput'
+import { PasswordInput } from 'components/Organisms/form/passwordInput'
+import { NameInput } from 'components/Organisms/form/nameInput'
 import { AlternateEmail } from '@material-ui/icons'
-import { ConfirmPasswordInput } from 'components/form/confirmPassword'
+import { ConfirmPasswordInput } from 'components/Organisms/form/confirmPassword'
 import { useRouter } from 'next/router'
 
 
@@ -91,8 +91,7 @@ const clear = () => {
         zip: zipValue,
         address: addressValue,
         tel: telValue,
-        password: passwordValue,
-        confirmPassword: confirmPasswordValue
+        password: passwordValue
       };
 
       fetch(`http://localhost:8000/users`, {

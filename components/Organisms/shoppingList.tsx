@@ -1,9 +1,9 @@
 import useSWR, { useSWRConfig } from 'swr';
 import { useRouter } from "next/router";
-import { ItemCardsSide } from "components/itemCards-side";
-import { RecognizeList } from "components/recognizeList"
-import { ItemCardsWrapRecognize } from "components/itemCards-wrap";
-import style from "../src/styles/shoppingCart.module.css"
+import { ItemCardsSide } from "components/Organisms/itemCards-side";
+import { RecognizeList } from "../Organisms/recognizeList"
+import { ItemCardsWrapRecognize } from "../Organisms/itemCards-wrap";
+import style from "../../src/styles/shoppingCart.module.css"
 import Image from 'next/image';
 import Head from 'next/head';
 
@@ -23,6 +23,7 @@ export const ShoppingList = (props: any) => {
             quantity: number
           },
             index: number) => {
+              console.log(shoppingItems.quantity)
             return (
 
               <div className={` mb-1 grid sm:gap-1 grid-cols-5 rounded-md ${style.gridWidth} 
