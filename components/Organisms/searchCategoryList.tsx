@@ -8,7 +8,7 @@ export const SearchCategoryList = (props: any) => {
   const router = useRouter();
 
   // 最初のカテゴリ以外のリスト（スタイルが違うため）
-  const categoryList = ["生花", "多肉植物", "アレンジメント", "花束・ブーケ", "スワッグ", "フラワーリース", "スタンド花","花瓶・フラワーベース"]
+  const categoryList = ["観葉植物","生花", "多肉植物", "アレンジメント", "花束・ブーケ", "スワッグ", "フラワーリース", "スタンド花","花瓶・フラワーベース"]
 
   return (
     <>
@@ -22,12 +22,10 @@ export const SearchCategoryList = (props: any) => {
             className="border-none"
             onClick={() => {
               router.push({
-                pathname: "/items",
-                query: { category: "観葉植物" } 
+                pathname: "/items"
               });
-              props.setCategoryWord(`観葉植物`)
             }}>
-              観葉植物
+              全て
             </button>
           </li>
 
@@ -37,8 +35,11 @@ export const SearchCategoryList = (props: any) => {
                 <button type="button" 
                 className="border-none"
                 onClick={() => {
-                  
-                  props.setCategoryWord(`${CategoryData}`)
+                  router.push({
+                    pathname: "/items",
+                    query: { category: `${CategoryData}` } 
+                  });
+                  // props.setCategoryWord(`${CategoryData}`)
                 }}>
                   {CategoryData}
                 </button>
