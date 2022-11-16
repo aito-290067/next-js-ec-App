@@ -70,6 +70,7 @@ export const Home = () => {
 
 
   const itemList:any = [];
+  // フォームで検索
   data.map((ItemData:any,index :number)=>{
     // Enterが押された時
     if (searchState === true) {
@@ -82,7 +83,19 @@ export const Home = () => {
     }
   })
 
-  console.log(itemList)
+  const categoryitemList:any = [];
+  // カテゴリ検索
+  itemList.map((ItemData:any, index:number)=>{
+    if(categoryWord.length !== 0){
+      if(ItemData.category.includes(categoryWord)){
+        categoryitemList.push(ItemData)
+      }
+    }else{
+      categoryitemList.push(ItemData)
+    }
+  })
+
+
   return (
     <>
       {/* <ModalWindow /> */}
@@ -92,7 +105,7 @@ export const Home = () => {
         <div className=" flex flex-nowrap " style={{ height: "100%" }} >
 
           <div className="hidden md:flex">
-            <SearchNavigationbar />
+            <SearchNavigationbar setCategoryWord={setCategoryWord} categoryWord={categoryWord} />
           </div>
 
           <div className="float-right " style={{ height: "100%" }}>
@@ -169,7 +182,7 @@ export const Home = () => {
                 })
               } */}
               {
-                itemList.map((itemData: any, index: number) => {
+                categoryitemList.map((itemData: any, index: number) => {
                   return(
                     <ItemCardsWrap name={itemData.name} price={itemData.price} imagePath={itemData.imagePath} key={index} id={itemData.id} />
                     )
