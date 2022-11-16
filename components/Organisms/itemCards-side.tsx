@@ -1,5 +1,5 @@
 import Image from "next/image"
-import style from "../src/styles/itemCards.module.css"
+import style from "../../src/styles/itemCards.module.css"
 
 
 
@@ -88,7 +88,7 @@ export const ItemCardsSide = (props: any) => {
         <ItemCardsSidePrice price={props.price} />
 
         <div className=' container flex flex-wrap justify-center items-center '>
-          <ItemCardsSideCount count={11} />
+          <ItemCardsSideCount count={props.quantity} />
         </div>
         <button className={`mx-6 text-gray-500 ${style.deleteButtonItemCards}`}> 削除</button>
       </>

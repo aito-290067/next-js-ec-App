@@ -3,19 +3,19 @@ import Head from "next/head";
 // import Link from "next/link";
 // import style from "../src/styles/humburger.module.css";
 // import React from "react";
-import { SearchForm } from "./searchForm"
+import { SearchForm } from "../Molecules/searchForm"
 import { useRouter } from "next/router";
 import Link from "next/link";
-import style from "../src/styles/header.module.css"
-import { useState } from "react";
+import style from "../../src/styles/header.module.css"
+import { useEffect, useState } from "react";
 
 const Logo = (props: { path: string }) => {
   return (
     <Image
       className=""
       src={props.path}
-      width={50}
-      height={50}
+      width={100}
+      height={70}
     />
   );
 }
@@ -101,8 +101,38 @@ const UserNavigationGroupOther = () => {
 
 export const Header = () => {
   const [hamburgerMenuDisplayState, SetHamburgerMenuDisplayState] = useState(false)
+  const [gestIdState, SetgestIdState] = useState(false)
+  const cookieList:any = [];
+
+
+useEffect(()=>{
+  const splitCookie = document.cookie.split(';');
+  const list = [];
+  
+  for (let i = 0; i < splitCookie.length; i++) {
+    list.push(splitCookie[i].split('='));
+  }
+
+  // cookieにgestIDがセットされていな場合、付与する
+  list.map((data,index)=>{
+    if(data[0].includes("gestId")){
+      cookieList.push(data[0])
+    }
+  })
+  console.log(cookieList);
+  if(cookieList.length === 0){
+    let randomId = Math.random().toString(32).substring(2) ;
+    document.cookie = `gestId=${randomId}; path=/;`;
+  }
+  
+},[])
+
+
+
+
 
   const HumburgerList = () => {
+    // ハンバーガーメニューのロゴを押されたら表示
     if(hamburgerMenuDisplayState === true){
 
       return (
@@ -137,7 +167,7 @@ export const Header = () => {
   return (
     <>
       <div className="container flex flex-wrap justify-between items-center mx-auto py-5 px-5  bg-gray-50 opacity-0.1">
-        <Logo path="/logo.png" />
+        <Logo path="/logoFlower.png" />
         <ul className="float-right hidden md:block">
           <HeaderListGoogleIconList name="person" path={`/users/login`} list={<UserNavigationGroupUser />}
             title="アカウント"

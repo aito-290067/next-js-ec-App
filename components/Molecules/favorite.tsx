@@ -1,4 +1,4 @@
-import style from "../src/styles/favorite.module.css"
+import style from "../../src/styles/favorite.module.css"
 
 export const Favorite = () => {
 

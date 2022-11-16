@@ -4,19 +4,17 @@ import Link from "next/link";
 import React, { useState, useEffect } from 'react';
 import useSWR, { useSWRConfig } from 'swr';
 import { useRouter } from "next/router";
-import { ItemCardsWrap } from "components/itemCards-wrap";
-import { SearchForm } from "components/searchForm"
-import { Loader } from "components/loader";
-import RecognizeList from "components/recognizeList";
-import { Calendar } from "components/calendar";
-import { Information } from "components/Information";
-import { Map } from "components/map";
-import { NewItemsSection, RecognizeItesSection ,ItemsSection} from "components/topItemListSection";
-import { SearchNavigationbar } from "components/searchNavigationbar";
-import { Slide } from "components/swiper";
-import style from "../styles/swiper.module.css"
-import Swiper from "swiper";
-
+import { ItemCardsWrap } from "../../components/Organisms/itemCards-wrap";
+import { SearchForm } from "components/Molecules/searchForm"
+import { Loader } from "components/Atoms/loader";
+import RecognizeList from "../../components/Organisms/recognizeList";
+import { Calendar } from "components/Molecules/calendar";
+import { Information } from "components/Molecules/Information";
+import { Map } from "components/Molecules/map";
+import { NewItemsSection, RecognizeItesSection, ItemsSection } from "../../components/Molecules/topItemListSection";
+import { SearchNavigationbar } from "components/Organisms/searchNavigationbar";
+import { Slide } from "components/Molecules/swiper";
+import { SlideCursor } from "components/Molecules/swiperCursor";
 
 
 const fetcher = (url: any) => fetch(url).then((res) => res.json());
@@ -30,7 +28,7 @@ export const Home = () => {
   );
 
   if (error) return (
-    <div>An error has occurred.</div>
+    <div className="container flex flex-wrap justify-center items-center mx-auto py-48 px-5 ">An error has occurred.</div>
   );
 
   if (!data) return (
@@ -43,22 +41,23 @@ export const Home = () => {
     <>
 
       <div className="container flex flex-wrap justify-center items-center mx-auto   ">
-        <div className="my-10">
+        <div className="mb-10 -translate-y-8 abusolute">
           <Slide />
-          {/* <div className={`${style.slideShow}`}>
-          <Image src="/Christmas-background.jpg" width={1000} height={600} alt="topImage" />
-          </div> */}
+          <div className="bg-gray-50 pb-4 sm:mt-18 mt-12">
+          <h3 className="text-2xl m-4">特集</h3>
+          <SlideCursor />
+          </div>
         </div>
 
 
 
-        <main className="my-5">
+        <main className="mb-5 container flex flex-wrap justify-center items-center mx-auto ">
+          <div className=" flex " style={{ height: "100%" }} >
+            <div className="hidden xl:flex xl:felx-nowrap xl:justify-start mx-auto">
+              <SearchNavigationbar />
+            </div>
 
-          <div className=" flex flex-nowrap " style={{ height: "100%" }} >
-
-            <SearchNavigationbar />
-
-            <div className="float-right " style={{ height: "100%" }}>
+            <div className="float-right " style={{ height: "100%" }} >
 
               <NewItemsSection />
               <ItemsSection />

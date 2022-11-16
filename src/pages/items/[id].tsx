@@ -4,19 +4,66 @@ import Link from "next/link";
 import React, { useState, useEffect } from 'react';
 import useSWR, { useSWRConfig } from 'swr';
 import { useRouter } from "next/router";
-import { SearchForm } from "components/searchForm"
+import { SearchForm } from "components/Molecules/searchForm"
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import style from "../../styles/itemListWrap.module.css"
-import RecognizeList from "components/recognizeList";
+import RecognizeList from "components/Organisms/recognizeList";
 
 
 const fetcher = (url: any) => fetch(url).then((res) => res.json());
 
 
-export const Details = ({ data }: { data: { name: string, price: number, info: string, imagePath: any, id: any } }
+export const Details = ({ data }: { data: { name: string, price: number, info: string, imagePath: any, id: any, quantity: number } }
 ) => {
   const router = useRouter();
+  const [gestIdValue, SetGestIdValue] = useState("")
 
+  useEffect(() => {
+
+    const splitCookie = document.cookie.split(';');
+    const list = [];
+
+    for (let i = 0; i < splitCookie.length; i++) {
+      list.push(splitCookie[i].split('='));
+    }
+
+    list.map((cookieData, index) => {
+      // ゲストID取得
+      if (cookieData.includes(" gestId")) {
+        SetGestIdValue(cookieData[1]);
+      }
+    })
+
+  }, [])
+
+  const addItemsRegister = () => {
+
+    // カートに商品情報・ゲストID追加
+    console.log(`POST前 ${gestIdValue}`)
+    const addCartItems = {
+      name: data.name,
+      price: data.price,
+      quantity: 1,
+      imagePath: data.imagePath,
+      gestId: gestIdValue
+    };
+
+
+    fetch(`http://localhost:8000/carts`, {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(addCartItems)
+    }).then((response) => {
+      return response.json();
+    }).then((data) => {
+      alert("追加しました。");
+    }).then(() => {
+      router.push("/carts");
+    })
+
+  }
 
   return (
     <>
@@ -60,7 +107,10 @@ export const Details = ({ data }: { data: { name: string, price: number, info: s
             lg:block
             ">
               <button
-                className={` btn btn-blue border border-blue-100 text-white py-4 px-2 my-8 rounded-lg  ${style.CartInButton}`}>
+                className={` btn btn-blue border border-blue-100 text-white py-4 px-2 my-8 rounded-lg  ${style.CartInButton}`}
+                onClick={addItemsRegister}
+                type="button"
+              >
                 カートに入れる
               </button>
             </form>
@@ -95,8 +145,8 @@ export const getStaticPaths = async () => {
   //   )
   // })
 
-  for(let i = 1; i <= json.length; i++){
-    list.push({ params: {id: `${i}`}})
+  for (let i = 1; i <= json.length; i++) {
+    list.push({ params: { id: `${i}` } })
   }
 
   return {
