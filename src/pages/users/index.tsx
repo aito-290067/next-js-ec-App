@@ -117,11 +117,6 @@ const clear = () => {
 
   return (
     <>
-      {/* <div className=" flex flex-wrap justify-center items-center mt-7">
-        <h1 className="text-bold" style={{ 
-          color: "#75ad9d",
-           fontSize: "30px" }}>会員登録</h1>
-      </div> */}
 
       <div className="container flex flex-wrap justify-center items-center mx-auto py-5 px-5 bg-white-100 my-12">
 

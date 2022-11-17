@@ -68,10 +68,20 @@ const Error = (props: any) => {
 
 
 
-export const MailInput = (props: { SetMailErrorState: any, SetMailValue: any, errorFlag: any, mailErrorState: any, mailValue: any, displayFlag: boolean }) => {
+export const MailInput = (props:any) => {
+
+  let mail = ""
+
+  if(props.ordererMail){
+    mail = props.ordererMail
+  }
 
   const onChangeHandler = (ev: ChangeEvent<HTMLInputElement>) => {
     props.SetMailValue(ev.target.value);
+
+    if(props.SetOrdererMail){
+      props.SetOrdererMail(ev.target.value);
+    }
 
     if (!(ev.target.value)) {
       props.SetMailErrorState("empty");
@@ -107,8 +117,9 @@ export const MailInput = (props: { SetMailErrorState: any, SetMailValue: any, er
             errorFlag={props.errorFlag} />
         </div>
         <div>
-          <input type="text" className="name border mr-4 py-1 px-3 rounded-md w-full focus:outline-none focus:ring-2 z-1 h-10" id="name" required style={{ width: "430px" }} onChange={onChangeHandler} 
+          <input type="text" className="name border mr-4 py-1 px-3 rounded-md w-full focus:outline-none focus:ring-2 z-1 h-10" id="name" required style={{ width: "430px" }} onBlur={onChangeHandler} 
           placeholder="例）mail@example.com"
+          defaultValue={mail}
           />
         </div>
 

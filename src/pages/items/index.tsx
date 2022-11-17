@@ -195,4 +195,16 @@ export const Home = () => {
   );
 }
 
+
+// export const getStaticProps = async () => {
+//   const res = await fetch(`http://localhost:8000/items`);
+//   const json = await res.json();
+
+
+//   return {
+//     props: { data: json },
+//     revalidate: 1
+//   }
+// }
+
 export default Home;

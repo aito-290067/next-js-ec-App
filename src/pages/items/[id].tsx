@@ -10,7 +10,7 @@ import style from "../../styles/itemListWrap.module.css"
 import RecognizeList from "components/Organisms/recognizeList";
 
 
-const fetcher = (url: any) => fetch(url).then((res) => res.json());
+// const fetcher = (url: any) => fetch(url).then((res) => res.json());
 
 
 export const Details = ({ data }: { data: any

@@ -72,9 +72,18 @@ const Error5 = (props: any) => {
 
 export const ZipInput = (props: any) => {
 
-  
+  let zip = ""
+
+  if(props.ordererZip){
+    zip = props.ordererZip
+  }
+
   const onChangeHandler = (ev: ChangeEvent<HTMLInputElement>) => {
     props.SetZipValue(ev.target.value);
+
+    if(props.SetOrdererZip){
+      props.SetOrdererZip(ev.target.value);
+    }
     
     if(!(ev.target.value)){
       props.SetZipErrorState("empty")    
@@ -103,8 +112,9 @@ export const ZipInput = (props: any) => {
 
         </div>
         <div>
-          <input type="text" className="name border mr-4 py-1 px-3 rounded-md w-full focus:outline-none focus:ring-2 z-1 h-10" id="name" required style={{ width: "230px" }} onChange={onChangeHandler}
+          <input type="text" className="name border mr-4 py-1 px-3 rounded-md w-full focus:outline-none focus:ring-2 z-1 h-10" id="name" required style={{ width: "230px" }} onBlur={onChangeHandler}
           placeholder="例）123-1234"
+          defaultValue={zip}
           />
         </div>
 

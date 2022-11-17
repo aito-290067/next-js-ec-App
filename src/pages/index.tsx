@@ -16,20 +16,14 @@ import { SearchNavigationbar } from "components/Organisms/searchNavigationbar";
 import { Slide } from "components/Molecules/swiper";
 import { SlideCursor } from "components/Molecules/swiperCursor";
 
-
-const fetcher = (url: any) => fetch(url).then((res) => res.json());
-
-export const Home = () => {
+export const Home = ({data}:any) => {
 
   const router = useRouter();
-  const { data, error, mutate } = useSWR(
-    `http://localhost:8000/items`,
-    fetcher
-  );
 
-  if (error) return (
-    <div className="container flex flex-wrap justify-center items-center mx-auto py-48 px-5 ">An error has occurred.</div>
-  );
+
+  // if (error) return (
+  //   <div className="container flex flex-wrap justify-center items-center mx-auto py-48 px-5 ">An error has occurred.</div>
+  // );
 
   if (!data) return (
     <>
@@ -78,5 +72,17 @@ export const Home = () => {
     </>
   );
 }
+
+export const getStaticProps = async () => {
+  const res = await fetch(`http://localhost:8000/items`);
+  const json = await res.json();
+
+
+  return {
+    props: { data: json },
+    revalidate: 1
+  }
+}
+
 
 export default Home;

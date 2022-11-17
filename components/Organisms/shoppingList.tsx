@@ -9,19 +9,59 @@ import Head from 'next/head';
 import { useEffect, useState } from 'react';
 
 
+const fetcher = (url: any) => fetch(url).then((res) => res.json());
+
 export const ShoppingList = (props: any) => {
   const [quantityAdd, setQuantityAdd] = useState(0)
-  
-  // カートの商品の金額を配列に入れる
-  const priceList:any = [];
-    props.data.map((itemData:any, index:number)=>{
-      priceList.push(itemData.price * itemData.quantity)
+
+  const [gestIdValue, SetGestIdValue] = useState("")
+  const [loginStatus, SetLoginStatus] = useState("")
+
+
+  useEffect(() => {
+
+    const splitCookie = document.cookie.split(';');
+    const list = [];
+
+    for (let i = 0; i < splitCookie.length; i++) {
+      list.push(splitCookie[i].split('='));
+    }
+
+    list.map((cookieData, index) => {
+      // ゲストID取得
+      if (cookieData.includes(" gestId")) {
+        SetGestIdValue(cookieData[1]);
+      }
+      if (cookieData.includes("login")) {
+        SetLoginStatus(cookieData[1]);
+      }
     })
 
+  }, [])
+
+  const { data, error, mutate } = useSWR(
+    `http://localhost:8000/carts?gestId=${gestIdValue}`,
+    fetcher
+  );
+
+  // カートの商品の金額を配列に入れる
+  const priceList: any = [];
+  if(data){
+    data.map((itemData: any, index: number) => {
+      priceList.push(itemData.price * itemData.quantity)
+    })
+  }
+
   //合計金額算出 
-    let totalPrice = priceList.reduce(function(sum:number, element:number){
-      return Number(sum) + Number(element);
-    }, 0);
+  let totalPrice = priceList.reduce(function (sum: number, element: number) {
+    return Number(sum) + Number(element);
+  }, 0);
+
+  if (!data) return (
+    <>
+      
+    </>
+  );
 
 
 
@@ -30,14 +70,14 @@ export const ShoppingList = (props: any) => {
       <div className="container flex flex-col justify-center items-center mx-auto py-5 px-5 ">
 
         {
-          props.data.map((shoppingItems: {
+          data&&data.map((shoppingItems: {
             name: string,
             imagePath: string,
             price: number,
             quantity: number
           },
             index: number) => {
-    
+
             return (
               <div className={` mb-1 grid sm:gap-1 grid-cols-5 rounded-md ${style.gridWidth} 
                         `} key={index}>
