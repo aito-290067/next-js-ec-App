@@ -11,12 +11,17 @@ import { useEffect, useState } from "react";
 
 const Logo = (props: { path: string }) => {
   return (
-    <Image
-      className=""
-      src={props.path}
-      width={100}
-      height={70}
-    />
+    <Link href="/">
+      <a >
+
+        <Image
+          className=""
+          src={props.path}
+          width={100}
+          height={70}
+        />
+      </a>
+    </Link>
   );
 }
 
@@ -102,30 +107,30 @@ const UserNavigationGroupOther = () => {
 export const Header = () => {
   const [hamburgerMenuDisplayState, SetHamburgerMenuDisplayState] = useState(false)
   const [gestIdState, SetgestIdState] = useState(false)
-  const cookieList:any = [];
+  const cookieList: any = [];
 
 
-useEffect(()=>{
-  const splitCookie = document.cookie.split(';');
-  const list = [];
-  
-  for (let i = 0; i < splitCookie.length; i++) {
-    list.push(splitCookie[i].split('='));
-  }
+  useEffect(() => {
+    const splitCookie = document.cookie.split(';');
+    const list = [];
 
-  // cookieにgestIDがセットされていな場合、付与する
-  list.map((data,index)=>{
-    if(data[0].includes("gestId")){
-      cookieList.push(data[0])
+    for (let i = 0; i < splitCookie.length; i++) {
+      list.push(splitCookie[i].split('='));
     }
-  })
-  console.log(cookieList);
-  if(cookieList.length === 0){
-    let randomId = Math.random().toString(32).substring(2) ;
-    document.cookie = `gestId=${randomId}; path=/;`;
-  }
-  
-},[])
+
+    // cookieにgestIDがセットされていな場合、付与する
+    list.map((data, index) => {
+      if (data[0].includes("gestId")) {
+        cookieList.push(data[0])
+      }
+    })
+    console.log(cookieList);
+    if (cookieList.length === 0) {
+      let randomId = Math.random().toString(32).substring(2);
+      document.cookie = `gestId=${randomId}; path=/;`;
+    }
+
+  }, [])
 
 
 
@@ -133,36 +138,36 @@ useEffect(()=>{
 
   const HumburgerList = () => {
     // ハンバーガーメニューのロゴを押されたら表示
-    if(hamburgerMenuDisplayState === true){
+    if (hamburgerMenuDisplayState === true) {
 
       return (
         <div className=" pb-5  bg-white shadow-xl rounded-md
         absolute  z-20 translate-y-20 -translate-x-12  md:hidden text-gray-500
         ">
-        <ul className="flex flex-col">
-          <li>
-            <button className={`float-right ${style.close} `} onClick={()=>{
-              SetHamburgerMenuDisplayState(false)
-            }}>
-              <span className={`material-icons text-gray-400 ${style.close} `}>
-                close
-              </span>
-            </button>
-          </li>
-          <HeaderListText name="トップ" path={`/`} />
-          <HeaderListText name="商品一覧" path={`/items`} />
-          <HeaderListText name="カート" path={`/carts`} />
-          <HeaderListText name="注文確認" path={`/carts/confirm`} />
-          <HeaderListText name="新規登録" path={`/users/`} />
-          <HeaderListText name="ログイン" path={`/users/login`} />
-        </ul>
-      </div>
+          <ul className="flex flex-col">
+            <li>
+              <button className={`float-right ${style.close} `} onClick={() => {
+                SetHamburgerMenuDisplayState(false)
+              }}>
+                <span className={`material-icons text-gray-400 ${style.close} `}>
+                  close
+                </span>
+              </button>
+            </li>
+            <HeaderListText name="トップ" path={`/`} />
+            <HeaderListText name="商品一覧" path={`/items`} />
+            <HeaderListText name="カート" path={`/carts`} />
+            <HeaderListText name="注文確認" path={`/carts/confirm`} />
+            <HeaderListText name="新規登録" path={`/users/`} />
+            <HeaderListText name="ログイン" path={`/users/login`} />
+          </ul>
+        </div>
 
-)
-}else{
-  return <></>;
-}
-}
+      )
+    } else {
+      return <></>;
+    }
+  }
 
   return (
     <>

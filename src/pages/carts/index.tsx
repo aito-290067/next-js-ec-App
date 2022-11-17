@@ -10,8 +10,6 @@ import Head from 'next/head';
 import { Loader } from 'components/Atoms/loader';
 
 
-const fetcher = (url: any) => fetch(url).then((res) => res.json());
-
 export const Home = () => {
   
   
@@ -40,20 +38,7 @@ export const Home = () => {
   }, [])
 
   const router = useRouter();
-  const { data, error, mutate } = useSWR(
-    `http://localhost:8000/carts?gestId=${gestIdValue}`,
-    fetcher
-  );
 
-  if (error) return (
-    <div className="container flex flex-wrap justify-center items-center mx-auto py-48 px-5 ">An error has occurred.</div>
-  );
-
-  if (!data) return (
-    <>
-      <Loader />
-    </>
-  );
 
   return (
     <>
@@ -64,7 +49,7 @@ export const Home = () => {
         </div>
         <div className="container flex flex-col justify-center items-center mx-auto py-5 px-5 ">
 
-          <ShoppingList data={data} title="ショッピングカート" />
+          <ShoppingList  pageName="ショッピングカート" />
 
           <button className="bg-red-700 text-white rounded-lg p-2  m-4 h-12 w-80 shadow-lg" 
           type="button"

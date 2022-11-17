@@ -8,7 +8,7 @@ export const SearchNavigationbar = (props:any) => {
   return (
     <>
       <div className="md:mr-2 mt-2 pr-24 pt-12  xl:w-72 " >
-        <SearchCategoryList setCategoryWord={props.setCategoryWord} categoryWord={props.categoryWord} />
+        <SearchCategoryList />
         <BannerList />
         {/* <Calendar /> */}
       </div>

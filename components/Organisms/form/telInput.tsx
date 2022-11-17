@@ -47,38 +47,48 @@ const Navigation = (props: any) => {
 }
 
 const Error4 = (props: any) => {
-  if ( props.errorFlag === "true") {
+  if (props.errorFlag === "true") {
     if (props.value === "empty" || props.value === "init") {
       return (
         <>
           <label className="Error text-red-500  ml-3 text-sm">{props.text}</label>
         </>
       )
-    } else if(props.value === "format-inccorect") {
+    } else if (props.value === "format-inccorect") {
       return (
         <label className="Error text-red-500  ml-3 text-sm">xxx-xxxx-xxxxの形式で入力してください</label>
       );
-    }else{
+    } else {
       return <></>
     }
-  }else{
+  } else {
     return <></>
   }
 }
 
 export const TelInput = (props: any) => {
 
+  let tel = ""
+
+  if (props.ordererTel) {
+    tel = props.ordererTel
+  }
+
   const onChangeHandler = (ev: ChangeEvent<HTMLInputElement>) => {
     props.SetTelValue(ev.target.value);
-    
-    if(!(ev.target.value)){
-      props.SetTelErrorState("empty");  
-    }else if(!(ev.target.value.includes("-"))){
-      props.SetTelErrorState("format-inccorect");  
-    }else{
-      props.SetTelErrorState("ok");  
+
+    if (props.SetOrdererTel) {
+      props.SetOrdererTel(ev.target.value);
     }
- }
+
+    if (!(ev.target.value)) {
+      props.SetTelErrorState("empty");
+    } else if (!(ev.target.value.includes("-"))) {
+      props.SetTelErrorState("format-inccorect");
+    } else {
+      props.SetTelErrorState("ok");
+    }
+  }
 
   return (
     <>
@@ -86,17 +96,18 @@ export const TelInput = (props: any) => {
         <div className="mb-2">
           <label htmlFor="name">電話番号 </label>
           <span className="bg-red-600 rounded-md p-1 text-sm text-white " style={{ fontSize: "12px" }}>必須</span>
-          <Error4 
-          value={props.telErrorState} 
-          text="電話番号を入力してください"
-          SetTelErrorState={props.SetTelErrorState}
-          errorFlag={props. errorFlag} />
+          <Error4
+            value={props.telErrorState}
+            text="電話番号を入力してください"
+            SetTelErrorState={props.SetTelErrorState}
+            errorFlag={props.errorFlag} />
 
         </div>
         <div>
           <input type="text" className="name border mr-4 py-1 px-3 rounded-md w-full focus:outline-none focus:ring-2 z-1 h-10" id="name" required style={{ width: "430px" }}
-            onChange={onChangeHandler}
+            onBlur={onChangeHandler}
             placeholder="例）123-1234-1234"
+            defaultValue={tel}
           />
         </div>
         <Navigation text="-（ハイフン）を含む形式" value={props.telValue} />

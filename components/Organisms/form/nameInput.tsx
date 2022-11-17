@@ -21,9 +21,32 @@ const Error3 = (props: any) => {
 
 
 export const NameInput = (props: any) => {
+  let lastName = ""
+  let firstName = ""
+
+  if(props.ordererName && props.SetOrdererLastName && props.SetOrdererFirstName){
+    let split = props.ordererName.split(" ")
+    props.SetOrdererLastName(split[0])
+    props.SetOrdererFirstName(split[1])
+    
+  }
+
+
+  if (props.ordererFirstName) {
+    firstName = props.ordererFirstName
+  }
+  
+  if (props.ordererLastName) {
+    lastName = props.ordererLastName
+  }
+
+
   const onChangeHandlerLast = (ev: ChangeEvent<HTMLInputElement>) => {
     props.SetLastNameValue(ev.target.value);
 
+    if(props.SetOrdererLastName){
+      props.SetordererLastName(ev.target.value)
+    }
     if (!(ev.target.value)) {
       props.SetLastNameErrorState("empty");
     } else {
@@ -33,6 +56,11 @@ export const NameInput = (props: any) => {
 
   const onChangeHandlerFirst = (ev: ChangeEvent<HTMLInputElement>) => {
     props.SetFirstNameValue(ev.target.value);
+
+    
+    if(props.SetordererFirstName){
+      props.SetordererFirstName(ev.target.value)
+    }
 
     if (!(ev.target.value)) {
       props.SetFirstNameErrorState("empty");
@@ -55,8 +83,12 @@ export const NameInput = (props: any) => {
         </div>
         <div>
           <input type="text" className="name border mr-4 py-1 px-3 rounded-md    focus:border focus:border-gray-100  focus:outline-none focus:ring-2 z-1 h-10
-              " id="nameForm" placeholder="例）田中" required onChange={onChangeHandlerLast} />
-          <input type="text" className="name border mr-4 py-1 px-3 rounded-md focus:outline-none focus:ring-2 z-1 h-10" id="nameForm" placeholder="例）太郎" required onChange={onChangeHandlerFirst} />
+              " id="nameForm1" placeholder="例）田中" onBlur={onChangeHandlerLast} 
+              defaultValue={lastName}
+              />
+          <input type="text" className="name border mr-4 py-1 px-3 rounded-md focus:outline-none focus:ring-2 z-1 h-10" id="nameForm2" placeholder="例）太郎" onBlur={onChangeHandlerFirst} 
+          defaultValue={firstName}
+          />
         </div>
       </div>
     </>

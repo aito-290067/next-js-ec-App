@@ -76,7 +76,6 @@ export const Home = () => {
         return response.json();
       }).then((data) => {
         console.log(data);
-        document.cookie = "status=login; path=/;";
       }).then(() => {
         if(cartStatus === "confirm"){
           router.push("/carts/confirm");
@@ -86,6 +85,7 @@ export const Home = () => {
         }
       }).then(() => {
         alert("ログインしました。");
+          document.cookie = "status=login; path=/;";
       })
 
     } else {

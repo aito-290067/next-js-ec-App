@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Fragment } from 'react';
 import useSWR, { useSWRConfig } from 'swr';
 import { useRouter } from "next/router";
 import { ItemCardsWrap } from "../../../components/Organisms/itemCards-wrap";
@@ -16,13 +16,22 @@ import ModalWindow from "../../../components/Organisms/modal"
 const fetcher = (url: any) => fetch(url).then((res) => res.json());
 
 export const Home = () => {
+
+
   const [searchWord, setSearchWord] = useState("")
   // 検索フォームでEnterが押されたかどうか
-  const [searchState, setSearchState] = useState(false) 
-  const [categoryWord, setCategoryWord] = useState("") 
- 
+  const [searchState, setSearchState] = useState(false)
+  // const [categoryWord, setCategoryWord]:any= useState("") 
 
   const router = useRouter();
+  let categoryWord: string | string[] = "";
+
+  // routerで引き渡された値をセット
+  if (router.query.category) {
+    categoryWord = router.query.category;
+  }
+
+
   const { data, error, mutate } = useSWR(
     `http://localhost:8000/items`,
     fetcher
@@ -38,9 +47,37 @@ export const Home = () => {
     </>
   );
 
+
+  const itemList: any = [];
+  // フォームで検索
+  data.map((ItemData: any, index: number) => {
+    // Enterが押された時
+    if (searchState === true) {
+      // 検索ワードと一致した場合
+      if (ItemData.name.match(searchWord)) {
+        itemList.push(ItemData);
+      }
+    } else {
+      itemList.push(ItemData);
+    }
+  })
+
+  const categoryitemList: any = [];
+  // カテゴリ検索
+  itemList.map((ItemData: any, index: number) => {
+    if (categoryWord.length !== 0) {
+      if (ItemData.category.includes(categoryWord)) {
+        categoryitemList.push(ItemData)
+      }
+    } else {
+      categoryitemList.push(ItemData)
+    }
+  })
+
+
   // エラー表示
   const ErrorMessage = () => {
-    if (categoryitemList.length === 0 ) {
+    if (categoryitemList.length === 0) {
 
       return (
         <>
@@ -57,10 +94,15 @@ export const Home = () => {
     if (categoryitemList.length === 0) {
       return (
         <>
-          {data.map((itemData: any, index: number) => {
+          {
+            data.map((itemData: any, index: number) => {
+            if (itemData.category.includes(categoryWord)) {
             return (
               <ItemCardsWrap name={itemData.name} price={itemData.price} imagePath={itemData.imagePath} key={index} id={itemData.id} />
             )
+          }else{
+            return <Fragment key={index}></Fragment>
+          }
           })
           }
         </>
@@ -69,33 +111,6 @@ export const Home = () => {
       return <></>
     }
   }
-
-
-  const itemList:any = [];
-  // フォームで検索
-  data.map((ItemData:any,index :number)=>{
-    // Enterが押された時
-    if (searchState === true) {
-      // 検索ワードと一致した場合
-      if (ItemData.name.match(searchWord)) {
-        itemList.push(ItemData);
-      }
-    }else{
-      itemList.push(ItemData);
-    }
-  })
-
-  const categoryitemList:any = [];
-  // カテゴリ検索
-  itemList.map((ItemData:any, index:number)=>{
-    if(categoryWord.length !== 0){
-      if(ItemData.category.includes(categoryWord)){
-        categoryitemList.push(ItemData)
-      }
-    }else{
-      categoryitemList.push(ItemData)
-    }
-  })
 
 
   return (
@@ -107,7 +122,7 @@ export const Home = () => {
         <div className=" flex flex-nowrap " style={{ height: "100%" }} >
 
           <div className="hidden md:flex">
-            <SearchNavigationbar setCategoryWord={setCategoryWord} categoryWord={categoryWord} />
+            <SearchNavigationbar/>
           </div>
 
           <div className="float-right " style={{ height: "100%" }}>
@@ -165,9 +180,9 @@ export const Home = () => {
       ">
               {
                 categoryitemList.map((itemData: any, index: number) => {
-                  return(
+                  return (
                     <ItemCardsWrap name={itemData.name} price={itemData.price} imagePath={itemData.imagePath} key={index} id={itemData.id} />
-                    )
+                  )
                 })
               }
               <SearchItemsNone />
@@ -179,5 +194,17 @@ export const Home = () => {
     </>
   );
 }
+
+
+// export const getStaticProps = async () => {
+//   const res = await fetch(`http://localhost:8000/items`);
+//   const json = await res.json();
+
+
+//   return {
+//     props: { data: json },
+//     revalidate: 1
+//   }
+// }
 
 export default Home;
