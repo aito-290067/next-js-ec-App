@@ -118,7 +118,7 @@ export const PasswordInput = (props: {
     <>
       <div className="my-5 ml-5">
         <div className="mb-2">
-          <label htmlFor="name">パスワード </label>
+          <label htmlFor="password">パスワード </label>
           <span className="bg-red-600 rounded-md p-1 text-sm text-white " style={{ fontSize: "12px" }}>必須</span>
           <Error
             text="パスワードを入力してください"
@@ -130,8 +130,9 @@ export const PasswordInput = (props: {
           />
         </div>
         <div>
-          <input type="text" className="name border mr-4 py-1 px-3 rounded-md w-full focus:outline-none focus:ring-2 z-1 h-10" id="name" required style={{ width: "430px" }} onChange={onChangeHandler}
+          <input type="password" className="password border mr-4 py-1 px-3 rounded-md w-full focus:outline-none focus:ring-2 z-1 h-10" id="password" required style={{ width: "430px" }} onChange={onChangeHandler}
           placeholder="例）Password123"
+          autoComplete="new-password"
           />
         </div>
 

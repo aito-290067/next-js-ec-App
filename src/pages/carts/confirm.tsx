@@ -33,7 +33,7 @@ export const Home = () => {
     // 注文者情報
     const [ordererName, SetOrdererName] = useState("")
     const [ordererFirstName, SetOrdererFirstName] = useState("")
-    const [ordererLastName, SetOrdererLastName] = useState("")
+    const [ordererLastName, SetordererLastName] = useState("")
     const [ordererMail, SetOrdererMail] = useState("")
     const [ordererAddress, SetOrdererAddress] = useState("")
     const [ordererTel, SetOrdererTel] = useState("")
@@ -105,7 +105,7 @@ export const Home = () => {
   const OrdererInformation = () => {
 
     if (ordererStateChange === false) {
-      if (data) {
+      if (data.length !== 0) {
 
         return (
           <>
@@ -113,11 +113,12 @@ export const Home = () => {
               <div className='col-span-6'>
 
                 <UserInfomation
-                  name={data[0].name}
+                  name={`${data[0].lastName} ${data[0].firstName}`}
                   address={data[0].address}
                   tel={data[0].tel}
                   zip={data[0].zip}
-                  ordererName={ordererName}
+                  // ordererName={ordererName}
+                  ordererName={`${ordererLastName} ${ordererFirstName}`}
                   ordererAddress={ordererAddress}
                   ordererTel={ordererTel}
                   ordererZip={ordererZip}
@@ -132,7 +133,8 @@ export const Home = () => {
                 <button className={`mx-1  rounded-lg py-1 px-2 h-8 w-12 ${styles.changeButtonItemCards}`}
                   onClick={() => {
                     SetordererStateChange(true)
-                    // SetOrdererName(data[0].name)
+                    SetordererLastName(data[0].lastName)
+                    SetOrdererFirstName(data[0].firstName)
                     SetOrdererMail(data[0].mail)
                     SetOrdererAddress(data[0].address)
                     SetOrdererTel(data[0].tel)
@@ -144,12 +146,6 @@ export const Home = () => {
                     SetZipErrorState("ok")
                     SetTelErrorState("ok")
                     SetAddressErrorState("ok")
-
-
-                      let split = ordererName.split(" ")
-                      SetOrdererLastName(split[0])
-                      SetOrdererFirstName(split[1])
-                      console.log(ordererLastName)
                     
 
                   }}
@@ -191,7 +187,7 @@ export const Home = () => {
 
             SetOrdererName={SetOrdererName}
             SetordererFirstName={SetOrdererFirstName}
-            SetOrdererLastName={SetOrdererLastName}
+            SetordererLastName={SetordererLastName}
             SetOrdererMail={SetOrdererMail}
             SetOrdererAddress={SetOrdererAddress}
             SetOrdererTel={SetOrdererTel}
@@ -233,26 +229,7 @@ export const Home = () => {
 
           <div className={`${style.gridWidth} `}>
             <h2 className="mb-3 text-xl">お届け先情報</h2>
-            {/* <div className='bg-gray-100 pt-5 grid grid-cols-7'>
-              <div className='col-span-6'>
 
-                <UserInfomation
-                  gestIdValue={gestIdValue}
-                  SetOrdererName={SetOrdererName}
-                  SetOrdererMail={SetOrdererMail}
-                  SetOrdererAddress={SetOrdererAddress}
-                  SetOrdererTel={SetOrdererTel}
-                  SetOrdererZip={SetOrdererZip}
-                />
-
-                <PayMethod ordererPayMethod={ordererPayMethod} />
-                <DateOfDelivery />
-              </div>
-
-              <div className="flex flex-wrap justify-center items-center">
-                <button className={`mx-1  rounded-lg py-1 px-2 h-8 w-12 ${styles.changeButtonItemCards}`}> 変更</button>
-              </div>
-            </div> */}
             <OrdererInformation />
 
           </div>

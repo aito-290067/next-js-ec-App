@@ -76,6 +76,8 @@ export const ZipInput = (props: any) => {
 
   if(props.ordererZip){
     zip = props.ordererZip
+  }else{
+    zip = props.zipValue
   }
 
   const onChangeHandler = (ev: ChangeEvent<HTMLInputElement>) => {
@@ -99,7 +101,7 @@ export const ZipInput = (props: any) => {
       <div className="my-5 ml-5">
         <div className="mb-2">
 
-          <label htmlFor="name">郵便番号 </label>
+          <label htmlFor="zip">郵便番号 </label>
           <span className="bg-red-600 rounded-md p-1 text-sm text-white " style={{ fontSize: "12px" }}>必須</span>
 
           <Error5
@@ -112,9 +114,10 @@ export const ZipInput = (props: any) => {
 
         </div>
         <div>
-          <input type="text" className="name border mr-4 py-1 px-3 rounded-md w-full focus:outline-none focus:ring-2 z-1 h-10" id="name" required style={{ width: "230px" }} onBlur={onChangeHandler}
+          <input type="text" className="zip border mr-4 py-1 px-3 rounded-md w-full focus:outline-none focus:ring-2 z-1 h-10" id="zip" required style={{ width: "230px" }} onBlur={onChangeHandler}
           placeholder="例）123-1234"
           defaultValue={zip}
+          autoComplete="postal-code"
           />
         </div>
 

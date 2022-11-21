@@ -72,6 +72,8 @@ export const TelInput = (props: any) => {
 
   if (props.ordererTel) {
     tel = props.ordererTel
+  }else{
+    tel = props.telValue
   }
 
   const onChangeHandler = (ev: ChangeEvent<HTMLInputElement>) => {
@@ -94,7 +96,7 @@ export const TelInput = (props: any) => {
     <>
       <div className="my-5 ml-5">
         <div className="mb-2">
-          <label htmlFor="name">電話番号 </label>
+          <label htmlFor="tel">電話番号 </label>
           <span className="bg-red-600 rounded-md p-1 text-sm text-white " style={{ fontSize: "12px" }}>必須</span>
           <Error4
             value={props.telErrorState}
@@ -104,10 +106,11 @@ export const TelInput = (props: any) => {
 
         </div>
         <div>
-          <input type="text" className="name border mr-4 py-1 px-3 rounded-md w-full focus:outline-none focus:ring-2 z-1 h-10" id="name" required style={{ width: "430px" }}
+          <input type="text" className="tel border mr-4 py-1 px-3 rounded-md w-full focus:outline-none focus:ring-2 z-1 h-10" id="tel" required style={{ width: "430px" }}
             onBlur={onChangeHandler}
             placeholder="例）123-1234-1234"
             defaultValue={tel}
+            autoComplete="tel"
           />
         </div>
         <Navigation text="-（ハイフン）を含む形式" value={props.telValue} />

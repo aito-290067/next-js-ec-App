@@ -1,5 +1,5 @@
 import Modal from "react-modal"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 
 const customStyles = {
@@ -25,7 +25,7 @@ const customStyles = {
 // アプリのルートを識別するクエリセレクタを指定する。
 Modal.setAppElement('#__next')
 
-const ModalWindow = () => {
+const ModalWindow = (props: any) => {
   const [modalOpen, SetModalOpen] = useState(false)
 
   // モーダルを開く処理
@@ -42,9 +42,16 @@ const ModalWindow = () => {
     SetModalOpen(false)
   }
 
+  useEffect(() => {
+
+    if (props.state === true) {
+      SetModalOpen(true)
+    }
+
+  }, [])
   return (
     <>
-      <button onClick={openModal}>Open Modal</button>
+      {/* <button onClick={openModal}>Open Modal</button> */}
       <Modal
         // isOpenがtrueならモダールが起動する
         isOpen={modalOpen}

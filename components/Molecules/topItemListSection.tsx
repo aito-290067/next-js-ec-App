@@ -5,7 +5,7 @@ export const RecognizeItesSection = (props :any) => {
   return (
     <>
       <section>
-        <h2 className="flex flex-wrap items-center  justify-center  mt-24  text-2xl">おすすめ</h2>
+        <h2 className="flex flex-wrap items-center  justify-center  mt-24  sm:text-2xl">おすすめ</h2>
         <div className="items-center justify-center flex flex-wrap items-center justify-center mb-">
           <RecognizeList />
         </div>
@@ -17,7 +17,7 @@ export const NewItemsSection = (props :any) => {
   return (
     <>
       <section>
-        <h2 className="flex flex-wrap items-center  justify-center  mt-12  text-2xl">新入荷</h2>
+        <h2 className="flex flex-wrap items-center  justify-center  sm:mt-12  sm:text-2xl">新入荷</h2>
         <div className="items-center justify-center flex flex-wrap items-center justify-center mb-">
           <RecognizeList />
         </div>

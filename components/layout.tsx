@@ -9,10 +9,10 @@ export const Layout = ({ children }: any) => {
   return (
     <>
       <div className="conatiner">
-        <Header />
+      <Header />
         <main>{children}</main>
-        <Footer />
       </div>
+      <Footer />
 
 
     </>

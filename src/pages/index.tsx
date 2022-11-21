@@ -20,11 +20,6 @@ export const Home = ({data}:any) => {
 
   const router = useRouter();
 
-
-  // if (error) return (
-  //   <div className="container flex flex-wrap justify-center items-center mx-auto py-48 px-5 ">An error has occurred.</div>
-  // );
-
   if (!data) return (
     <>
       <Loader />
@@ -35,10 +30,10 @@ export const Home = ({data}:any) => {
     <>
 
       <div className="container flex flex-wrap justify-center items-center mx-auto   ">
-        <div className="mb-10 -translate-y-8 abusolute">
+        <div className="mb-10 -translate-y-10 abusolute">
           <Slide />
-          <div className="bg-gray-50 pb-4 sm:mt-18 mt-12">
-          <h3 className="text-2xl m-4">特集</h3>
+          <h3 className="sm:text-2xl mx-8 mt-10">特集</h3>
+          <div className="bg-gray-5  sm:mt-4 mt-2">
           <SlideCursor />
           </div>
         </div>

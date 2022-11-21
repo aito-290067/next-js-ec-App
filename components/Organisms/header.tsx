@@ -9,16 +9,17 @@ import Link from "next/link";
 import style from "../../src/styles/header.module.css"
 import { useEffect, useState } from "react";
 
+
+
 const Logo = (props: { path: string }) => {
   return (
-    <Link href="/">
+    <Link href="/" >
       <a >
-
         <Image
-          className=""
           src={props.path}
           width={100}
           height={70}
+          className=""
         />
       </a>
     </Link>
@@ -58,7 +59,7 @@ const HeaderListText = (props: { name: string, path: string }) => {
 const HeaderListGoogleIconList = (props: { name: string, path: string, list: any, title: string }) => {
   return (
     <>
-      <li className={`float-left mx-8 py-2.5  flex flex-col justify-center items-center mx-auto text-gray-500 text-sm`}>
+      <li className={`float-left mx-8 py-2.5  flex flex-col justify-center items-center mx-auto text-gray-500 text-sm z-100`}>
         <span className={`material-icons text-gray-400 ${style.icon} `}>
           {props.name}
         </span>
@@ -69,12 +70,14 @@ const HeaderListGoogleIconList = (props: { name: string, path: string, list: any
   );
 }
 
-const UserNavigationGroupUser = () => {
+const UserNavigationGroupUser = (props:any) => {
+
   return (
 
-    <ul className={`bg-white absolute   translate-y-10 flex flex-col rounded-xl  shadow-md  ${style.list} `}>
+    <ul className={`bg-white absolute   translate-y-4 flex flex-col rounded-xl  shadow-md  ${style.list} z-100`}>
       <HeaderListText name="新規登録" path={`/users/`} />
-      <HeaderListText name="ログイン" path={`/users/login`} />
+      <LoginState  loginState={props.loginState} SetLoginState={props.SetLoginState}/>
+     
     </ul>
 
   )
@@ -83,7 +86,7 @@ const UserNavigationGroupUser = () => {
 const UserNavigationGroupCart = () => {
   return (
 
-    <ul className={`bg-white absolute translate-y-10 flex flex-col rounded-xl  shadow-md  ${style.list} `}>
+    <ul className={`bg-white absolute translate-y-4 flex flex-col rounded-xl  shadow-md  ${style.list} z-100`}>
       <HeaderListText name="カート" path={`/carts`} />
       <HeaderListText name="注文確認" path={`/carts/confirm`} />
     </ul>
@@ -94,7 +97,7 @@ const UserNavigationGroupCart = () => {
 const UserNavigationGroupOther = () => {
   return (
 
-    <ul className={`bg-white absolute translate-y-10 flex flex-col rounded-xl  shadow-md  ${style.list} `}>
+    <ul className={`bg-white absolute translate-y-4 flex flex-col rounded-xl  shadow-md  ${style.list} z-100 `}>
       <HeaderListText name="トップ" path={`/`} />
       <HeaderListText name="商品一覧" path={`/items`} />
     </ul>
@@ -108,6 +111,8 @@ export const Header = () => {
   const [hamburgerMenuDisplayState, SetHamburgerMenuDisplayState] = useState(false)
   const [gestIdState, SetgestIdState] = useState(false)
   const cookieList: any = [];
+
+  const [loginState, SetLoginState] = useState(false)
 
 
   useEffect(() => {
@@ -123,8 +128,11 @@ export const Header = () => {
       if (data[0].includes("gestId")) {
         cookieList.push(data[0])
       }
+      if (data[1].includes("login")) {
+  
+        SetLoginState(true)
+      }
     })
-    console.log(cookieList);
     if (cookieList.length === 0) {
       let randomId = Math.random().toString(32).substring(2);
       document.cookie = `gestId=${randomId}; path=/;`;
@@ -134,15 +142,14 @@ export const Header = () => {
 
 
 
-
-
+  {/* <ModalWindow modal={true}/> */ }
   const HumburgerList = () => {
     // ハンバーガーメニューのロゴを押されたら表示
     if (hamburgerMenuDisplayState === true) {
 
       return (
-        <div className=" pb-5  bg-white shadow-xl rounded-md
-        absolute  z-20 translate-y-20 -translate-x-12  md:hidden text-gray-500
+        <div className=" pb-5  bg-white shadow-2xl rounded-md
+        absolute  z-20 translate-y-16 -translate-x-4  md:hidden text-gray-500
         ">
           <ul className="flex flex-col">
             <li>
@@ -159,7 +166,8 @@ export const Header = () => {
             <HeaderListText name="カート" path={`/carts`} />
             <HeaderListText name="注文確認" path={`/carts/confirm`} />
             <HeaderListText name="新規登録" path={`/users/`} />
-            <HeaderListText name="ログイン" path={`/users/login`} />
+            <LoginState  loginState={loginState} SetLoginState={SetLoginState} />
+            {/* <HeaderListText name="ログイン" path={`/users/login`} /> */}
           </ul>
         </div>
 
@@ -171,10 +179,12 @@ export const Header = () => {
 
   return (
     <>
-      <div className="container flex flex-wrap justify-between items-center mx-auto py-5 px-5  bg-gray-50 opacity-0.1">
-        <Logo path="/logoFlower.png" />
-        <ul className="float-right hidden md:block">
-          <HeaderListGoogleIconList name="person" path={`/users/login`} list={<UserNavigationGroupUser />}
+      <div className=" flex flex-wrap justify-between items-center  py-5  bg-gray-50 opacity-0.1 ">
+        <div className="ml-10">
+          <Logo path="/logoFlower.png" />
+        </div>
+        <ul className="float-right hidden md:block mx-5">
+          <HeaderListGoogleIconList name="person" path={`/users/login`} list={<UserNavigationGroupUser loginState={loginState} SetLoginState={SetLoginState} /> }
             title="アカウント"
 
           />
@@ -208,6 +218,26 @@ export const Header = () => {
   );
 }
 
+
+const LoginState = (props:any) => {
+  if (props.loginState === false) {
+    return (
+      <HeaderListText name="ログイン" path={`/users/login`} />
+    )
+  } else {
+    return (
+      <li className={`float-left mx-8 py-2.5  ${style.link}`}>
+        <button type="button"
+          onClick={() => {
+            document.cookie = "status=login; path=/; max-age=0;";
+            alert("ログアウトしました。")
+            props.SetLoginState(false)
+          }}
+        >ログアウト</button>
+      </li>
+    )
+  }
+}
 
 
 export default Header;

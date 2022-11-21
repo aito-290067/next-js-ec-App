@@ -21,8 +21,12 @@ export const ConfirmFrom = (props:any) => {
             lastNameErrorState={props.lastNameErrorState}
             SetLastNameErrorState={props.SetLastNameErrorState}
             errorFlag={props.errorFlag}
-            ordererName={props.ordererName}
-            SetOrdererName={props.SetOrdererName}
+
+            SetordererFirstName={props.SetOrdererFirstName}
+            SetordererLastName={props.SetordererLastName}
+            ordererLastName={props.ordererLastName}
+            ordererFirstName={props.ordererFirstName}
+            // SetOrdererName={props.SetOrdererName}
           />
           <hr />
 

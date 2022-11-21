@@ -70,6 +70,8 @@ export const AddressInput = (props: any) => {
 
   if(props.ordererAddress){
     address = props.ordererAddress
+  }else{
+    address =  props.addressValue
   }
 
   const onChangeHandler = (ev: ChangeEvent<HTMLInputElement>) => {
@@ -90,7 +92,7 @@ export const AddressInput = (props: any) => {
     <>
        <div className="my-5 ml-5">
             <div className="mb-2">
-              <label htmlFor="name">住所 </label>
+              <label htmlFor="address">住所 </label>
               <span className="bg-red-600 rounded-md p-1 text-sm text-white " style={{ fontSize: "12px" }}>必須</span>
               <Error
               text="住所を入力してください" 
@@ -98,9 +100,10 @@ export const AddressInput = (props: any) => {
               errorFlag={ props.errorFlag} />
             </div>
             <div>
-              <input type="text" className="name border mr-4 py-1 px-3 rounded-md w-full h-10 focus:outline-none focus:ring-2 z-1" id="name" required style={{ width: "430px" }} onBlur={onChangeHandler}
+              <input type="text" className="address border mr-4 py-1 px-3 rounded-md w-full h-10 focus:outline-none focus:ring-2 z-1" id="address" required style={{ width: "430px" }} onBlur={onChangeHandler}
               placeholder="例）東京都中央区"
               defaultValue={address}
+              autoComplete="street-address"
               />
               
 

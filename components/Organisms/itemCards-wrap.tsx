@@ -61,7 +61,7 @@ export const ItemCardsWrapRecognize = (props: any) => {
       </Link>
       <div className="flex">
 
-        <div className="px-2">
+        <div className="sm:px-2 ">
           <Link href={`/items/${props.id}`}>
             <a>
               <p className={`mb-2 text-sm pt-0.5 text-gray-500 ${style.recognizeItemName}`}>
@@ -71,7 +71,7 @@ export const ItemCardsWrapRecognize = (props: any) => {
           </Link>
         </div>
 
-        <div className="px-2 text-right ">
+        <div className="px-0 text-right sm:px-2 ">
           <Favorite />
         </div>
       </div>

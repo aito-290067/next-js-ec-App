@@ -87,6 +87,8 @@ const clear = () => {
 
       const data = {
         name: `${lastNameValue} ${firstNameValue}`,
+        lastName: lastNameValue,
+        firstName: firstNameValue,
         mail: mailValue,
         zip: zipValue,
         address: addressValue,

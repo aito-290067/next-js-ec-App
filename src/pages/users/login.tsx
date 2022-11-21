@@ -5,6 +5,7 @@ import { MailInput } from 'components/Organisms/form/mailInput'
 import { PasswordInput } from 'components/Organisms/form/passwordInput'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
+import ModalWindow from 'components/Organisms/modal'
 
 
 export const Home = () => {
@@ -55,6 +56,8 @@ export const Home = () => {
       console.log(`put前 ${gestIdValue}`)
       const data = {
         name: props[0].name,
+        lastName: props[0].lastName,
+        firstName: props[0].firstName,
         mail: props[0].mail,
         zip: props[0].zip,
         address: props[0].address,
@@ -76,16 +79,17 @@ export const Home = () => {
         return response.json();
       }).then((data) => {
         console.log(data);
-      }).then(() => {
+      }).then((cookie) => {
+          document.cookie = "status=login; path=/;";
+      }).then((alerts) => {
+        alert("ログインしました。");
+      }).then((route) => {
         if(cartStatus === "confirm"){
           router.push("/carts/confirm");
-          document.cookie = 'status=shopping; max-age=0; path=/';
+          document.cookie = 'carts=shopping; path=/; max-age=0;';
         }else{
           router.push("/items");
         }
-      }).then(() => {
-        alert("ログインしました。");
-          document.cookie = "status=login; path=/;";
       })
 
     } else {
@@ -95,14 +99,12 @@ export const Home = () => {
   }
 
 
-
+{/* <ModalWindow modal={true}/> */}
   return (
     <>
-      {/* <div className=" flex flex-wrap justify-center items-center mt-7">
-        <h1 className="text-bold " style={{ color: "#75ad9d", fontSize: "30px" }}>ログイン</h1>
-      </div> */}
 
-      <div className="container flex flex-wrap justify-center items-center mx-auto py-5 px-5 bg-white-100 my-12">
+
+      <div className="container flex flex-wrap justify-center items-center mx-auto pt-10 px-5 bg-white-100 my-12 mb-64 ">
 
         <div className="bg-gray-50 p-4 rounded-xl ">
 

@@ -40,7 +40,7 @@ export const RecognizeList = (props:any) => {
     <>
 
       <div className={` my-5`}>
-        <h5 className='mb-5'>{props.title}</h5>
+        <h5 className='sm:mb-5'>{props.title}</h5>
         <div className='flex  '>
           {
             data.map((items: any, index: number) => {
