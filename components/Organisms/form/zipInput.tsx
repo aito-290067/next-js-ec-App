@@ -62,6 +62,10 @@ const Error5 = (props: any) => {
       return (
         <label className="Error text-red-500  ml-3 text-sm">xxx-xxxxの形式で入力してください</label>
       );
+    } else if (props.value === "unexist") {
+      return (
+        <label className="Error text-red-500  ml-3 text-sm">存在する郵便番号を入力してください</label>
+      );
     } else {
       return <></>
     }
@@ -74,27 +78,62 @@ export const ZipInput = (props: any) => {
 
   let zip = ""
 
-  if(props.ordererZip){
+  if (props.ordererZip) {
     zip = props.ordererZip
-  }else{
+  } else {
     zip = props.zipValue
   }
 
   const onChangeHandler = (ev: ChangeEvent<HTMLInputElement>) => {
-    props.SetZipValue(ev.target.value);
+    if (!props.ordererZip) {
 
-    if(props.SetOrdererZip){
-      props.SetOrdererZip(ev.target.value);
+      props.SetZipValue(ev.target.value);
+
+
+      if (!(ev.target.value)) {
+        props.SetZipErrorState("empty")
+      } else if (!(ev.target.value.includes("-"))) {
+        props.SetZipErrorState("format-inccorect")
+      } else {
+        props.SetZipErrorState("ok")
+      }
     }
-    
-    if(!(ev.target.value)){
-      props.SetZipErrorState("empty")    
-    }else if(!(ev.target.value.includes("-"))){
-      props.SetZipErrorState("format-inccorect")      
-    }else{
-      props.SetZipErrorState("ok")      
+  }
+
+  const onBlurHandler = (ev: ChangeEvent<HTMLInputElement>) => {
+    if (props.ordererZip) {
+
+      props.SetZipValue(ev.target.value);
+
+      if (props.SetOrdererZip) {
+        props.SetOrdererZip(ev.target.value);
+      }
+
+      if (!(ev.target.value)) {
+        props.SetZipErrorState("empty")
+      } else if (!(ev.target.value.includes("-") || !(ev.target.value.match(/^\d{3}-\d{4}$/)))) {
+        props.SetZipErrorState("format-inccorect")
+      } else {
+        props.SetZipErrorState("ok")
+      }
     }
- }
+
+    if(props.register === "register" && props.zipErrorState === "ok"){
+      fetch(`https://zipcloud.ibsnet.co.jp/api/search?zipcode=${ev.target.value}`)
+      .then(res => res.json())
+      .then((json) => {
+        if (json.results === null) {
+          props.SetZipErrorState("unexist")
+        } else {
+          props.SetZipErrorState("ok")
+        }
+      })
+      .catch((error) => {
+        props.SetZipErrorState("unexist")
+        console.log(error)
+      });
+    }
+  }
 
   return (
     <>
@@ -114,10 +153,12 @@ export const ZipInput = (props: any) => {
 
         </div>
         <div>
-          <input type="text" className="zip border mr-4 py-1 px-3 rounded-md w-full focus:outline-none focus:ring-2 z-1 h-10" id="zip" required style={{ width: "230px" }} onBlur={onChangeHandler}
-          placeholder="例）123-1234"
-          defaultValue={zip}
-          autoComplete="postal-code"
+          <input type="text" className="zip border mr-4 py-1 px-3 rounded-md w-full focus:outline-none focus:ring-2 z-1 h-10" id="zip" required style={{ width: "230px" }}
+            onBlur={onBlurHandler}
+            onChange={onChangeHandler}
+            placeholder="例）123-1234"
+            defaultValue={zip}
+            autoComplete="postal-code"
           />
         </div>
 

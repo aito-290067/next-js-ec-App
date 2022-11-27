@@ -1,12 +1,14 @@
+import { useEffect, useState } from "react"
 
 export const SearchForm = (props: any) => {
+
   return (
     <>
       {/* <form > */}
       <input
         type="text"
         id="search"
-        placeholder="全ての商品から探す"
+        placeholder={`${props.categoryWord}から探す`}
         className="relative shadow border rounded-lg w-96  max-w-lg py-2 px-12 text-gray-700 focus:outline-none focus:ring-2 z-1"
         onChange={(ev) => {
           props.setSearchWord(ev.target.value)

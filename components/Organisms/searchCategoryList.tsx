@@ -8,7 +8,7 @@ export const SearchCategoryList = (props: any) => {
   const router = useRouter();
 
   // 最初のカテゴリ以外のリスト（スタイルが違うため）
-  const categoryList = ["観葉植物", "生花", "多肉植物", "アレンジメント", "花束・ブーケ", "スワッグ", "フラワーリース", "スタンド花", "花瓶・フラワーベース"]
+  const categoryList = ["観葉植物", "生花", "多肉植物", "アレンジメント", "花束・ブーケ", "スワッグ", "フラワーリース", "スタンド花"]
 
   return (
     <>
@@ -18,13 +18,14 @@ export const SearchCategoryList = (props: any) => {
         </h2>
         <ul className="">
           <label htmlFor="firstCategory">
-            <li className="border-2 border-gray-100 py-2 pl-2">
+            <li className="border-2 border-gray-100 py-2 pl-2 rounded-t-md">
               <button type="button"
                 id="firstCategory"
-                className="border-none"
+                className="border-none hover:text-[#75ad9d]"
                 onClick={() => {
                   router.push({
-                    pathname: "/items"
+                    pathname: "/items",
+                    query: { category: "全ての商品" }
                   });
                 }}>
                 全て
@@ -34,10 +35,10 @@ export const SearchCategoryList = (props: any) => {
 
           {categoryList.map((CategoryData: any, index: number) => {
             return (
-              <label htmlFor={CategoryData}  key={index}>
+              <label htmlFor={CategoryData} key={index}>
                 <li className="border-l-2 border-r-2 border-b-2 border-gray-100 py-2 pl-2 ">
                   <button type="button"
-                    className="border-none "
+                    className="border-none hover:text-[#75ad9d]"
                     id={CategoryData}
                     onClick={() => {
                       router.push({
@@ -51,6 +52,21 @@ export const SearchCategoryList = (props: any) => {
               </label>
             )
           })}
+          <label htmlFor="花瓶・フラワーベース">
+            <li className="border-l-2 border-r-2 border-b-2 border-gray-100 py-2 pl-2 rounded-b-md">
+              <button type="button"
+                id="花瓶・フラワーベース"
+                className="border-none hover:text-[#75ad9d]"
+                onClick={() => {
+                  router.push({
+                    pathname: "/items",
+                    query: { category: "花瓶・フラワーベース" }
+                  });
+                }}>
+                花瓶・フラワーベース
+              </button>
+            </li>
+          </label>
         </ul>
       </div>
     </>

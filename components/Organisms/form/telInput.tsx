@@ -72,23 +72,39 @@ export const TelInput = (props: any) => {
 
   if (props.ordererTel) {
     tel = props.ordererTel
-  }else{
+  } else {
     tel = props.telValue
   }
 
   const onChangeHandler = (ev: ChangeEvent<HTMLInputElement>) => {
-    props.SetTelValue(ev.target.value);
+    if (!props.ordererTel) {
 
-    if (props.SetOrdererTel) {
-      props.SetOrdererTel(ev.target.value);
+      props.SetTelValue(ev.target.value);
+
+      if (!(ev.target.value)) {
+        props.SetTelErrorState("empty");
+      } else if (!(ev.target.value.includes("-"))) {
+        props.SetTelErrorState("format-inccorect");
+      } else {
+        props.SetTelErrorState("ok");
+      }
     }
+  }
+  const onBlurHandler = (ev: ChangeEvent<HTMLInputElement>) => {
+    if (!props.ordererTel) {
+      props.SetTelValue(ev.target.value);
 
-    if (!(ev.target.value)) {
-      props.SetTelErrorState("empty");
-    } else if (!(ev.target.value.includes("-"))) {
-      props.SetTelErrorState("format-inccorect");
-    } else {
-      props.SetTelErrorState("ok");
+      if (props.SetOrdererTel) {
+        props.SetOrdererTel(ev.target.value);
+      }
+
+      if (!(ev.target.value)) {
+        props.SetTelErrorState("empty");
+      } else if (!(ev.target.value.includes("-"))) {
+        props.SetTelErrorState("format-inccorect");
+      } else {
+        props.SetTelErrorState("ok");
+      }
     }
   }
 
@@ -107,7 +123,8 @@ export const TelInput = (props: any) => {
         </div>
         <div>
           <input type="text" className="tel border mr-4 py-1 px-3 rounded-md w-full focus:outline-none focus:ring-2 z-1 h-10" id="tel" required style={{ width: "430px" }}
-            onBlur={onChangeHandler}
+            onBlur={onBlurHandler}
+            onChange={onChangeHandler}
             placeholder="例）123-1234-1234"
             defaultValue={tel}
             autoComplete="tel"

@@ -8,7 +8,7 @@ import { SearchForm } from "components/Molecules/searchForm"
 import { Params } from "next/dist/shared/lib/router/utils/route-matcher";
 import style from "../../styles/itemListWrap.module.css"
 import RecognizeList from "components/Organisms/recognizeList";
-
+import Swal from 'sweetalert2'
 
 // const fetcher = (url: any) => fetch(url).then((res) => res.json());
 
@@ -19,19 +19,20 @@ export const Details = ({ data }: { data: any
 ) => {
   const router = useRouter();
   const [gestIdValue, SetGestIdValue] = useState("")
+  const list:any = [];
 
   useEffect(() => {
 
     const splitCookie = document.cookie.split(';');
-    const list = [];
 
     for (let i = 0; i < splitCookie.length; i++) {
       list.push(splitCookie[i].split('='));
     }
+console.log(list)
 
-    list.map((cookieData, index) => {
+    list.map((cookieData:any, index:number) => {
       // ゲストID取得
-      if (cookieData.includes(" gestId")) {
+      if (cookieData.includes("gestId")) {
         SetGestIdValue(cookieData[1]);
       }
     })
@@ -45,6 +46,7 @@ export const Details = ({ data }: { data: any
     const addCartItems = {
       name: data.name,
       price: data.price,
+      orderPrice:data.price,
       quantity: 1,
       imagePath: data.imagePath,
       gestId: gestIdValue
@@ -60,10 +62,22 @@ export const Details = ({ data }: { data: any
     }).then((response) => {
       return response.json();
     }).then((data) => {
-      alert("追加しました。");
+      // alert("追加しました。");
+      Swal.fire(
+        {
+          icon: 'success',
+          text: '追加しました！',
+          confirmButtonText: '　　OK　　',
+          confirmButtonColor : "#75ad9d"
+        }
+      )
     }).then(() => {
-      router.push("/carts");
-    })
+      router.push({
+        pathname: "/carts"
+      });
+    }).catch(error => {
+      console.error('通信に失敗しました', error);
+    });
 
   }
 
@@ -94,7 +108,7 @@ export const Details = ({ data }: { data: any
             <p className="mb-4 text-xl text-gray-600">{data.name}</p>
             <h5 className="mb-8 text-2xl 
             font-bold
-            text-green-900">￥{data.price}<span className="text-sm text-gray-500">税込</span></h5>
+            text-[#75ad9d]">{Number(data.price).toLocaleString()}<span className="text-sm text-gray-500">円（税込）</span></h5>
             <p className="mb-4 text-sm">この商品の高さの目安は<span className="text-green-900 text-bold text-lg">～５０ｃｍ</span>になります。</p>
 
             <hr className="mb-6" />
@@ -108,8 +122,9 @@ export const Details = ({ data }: { data: any
             flex-wrap justify-center
             lg:block
             ">
+              {/* sm:${style.CartInButton} */}
               <button
-                className={` btn btn-blue border border-blue-100 text-white py-4 px-2 my-8 rounded-lg  ${style.CartInButton}`}
+                className={`btn bg-[#75ad9d] text-white py-4 my-8 rounded-lg  w-[100%] `}
                 onClick={addItemsRegister}
                 type="button"
               >
@@ -128,7 +143,7 @@ export const Details = ({ data }: { data: any
 
         </div>
 
-        < RecognizeList title="おすすめ" />
+        < RecognizeList title="おすすめ" category={data.category} itemId={data.id}/>
       </div>
     </>
   );

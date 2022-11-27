@@ -41,7 +41,7 @@ export const UserInfomation = (props: any) => {
             <ul>
               <li>{props.ordererName}　様</li>
               <li>〒{props.ordererZip}</li>
-              <li>{props.ordererAddres}</li>
+              <li>{props.ordererAddress}</li>
               <li>{props.ordererTel}</li>
               <li></li>
             </ul>
@@ -52,4 +52,3 @@ export const UserInfomation = (props: any) => {
     )
   }
 }
-

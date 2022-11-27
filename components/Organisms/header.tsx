@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import Link from "next/link";
 import style from "../../src/styles/header.module.css"
 import { useEffect, useState } from "react";
+import Swal from 'sweetalert2'
 
 
 
@@ -64,20 +65,22 @@ const HeaderListGoogleIconList = (props: { name: string, path: string, list: any
           {props.name}
         </span>
         {props.list}
-        <p className=""> {props.title}</p>
+        <label htmlFor="material-icons">
+        <p className="cursor-pointer"> {props.title}</p>
+        </label>
       </li>
     </>
   );
 }
 
-const UserNavigationGroupUser = (props:any) => {
+const UserNavigationGroupUser = (props: any) => {
 
   return (
 
     <ul className={`bg-white absolute   translate-y-4 flex flex-col rounded-xl  shadow-md  ${style.list} z-100`}>
       <HeaderListText name="新規登録" path={`/users/`} />
-      <LoginState  loginState={props.loginState} SetLoginState={props.SetLoginState}/>
-     
+      <LoginState loginState={props.loginState} SetLoginState={props.SetLoginState} />
+
     </ul>
 
   )
@@ -88,7 +91,7 @@ const UserNavigationGroupCart = () => {
 
     <ul className={`bg-white absolute translate-y-4 flex flex-col rounded-xl  shadow-md  ${style.list} z-100`}>
       <HeaderListText name="カート" path={`/carts`} />
-      <HeaderListText name="注文確認" path={`/carts/confirm`} />
+      <HeaderListText name="お気に入り" path={`/items/favorite`} />
     </ul>
 
   )
@@ -129,7 +132,7 @@ export const Header = () => {
         cookieList.push(data[0])
       }
       if (data[1].includes("login")) {
-  
+
         SetLoginState(true)
       }
     })
@@ -138,7 +141,7 @@ export const Header = () => {
       document.cookie = `gestId=${randomId}; path=/;`;
     }
 
-  }, [])
+  })
 
 
 
@@ -164,9 +167,10 @@ export const Header = () => {
             <HeaderListText name="トップ" path={`/`} />
             <HeaderListText name="商品一覧" path={`/items`} />
             <HeaderListText name="カート" path={`/carts`} />
-            <HeaderListText name="注文確認" path={`/carts/confirm`} />
+            <HeaderListText name="お気に入り" path={`/items/favorite`} />
             <HeaderListText name="新規登録" path={`/users/`} />
-            <LoginState  loginState={loginState} SetLoginState={SetLoginState} />
+
+            <LoginState loginState={loginState} SetLoginState={SetLoginState} />
             {/* <HeaderListText name="ログイン" path={`/users/login`} /> */}
           </ul>
         </div>
@@ -184,7 +188,7 @@ export const Header = () => {
           <Logo path="/logoFlower.png" />
         </div>
         <ul className="float-right hidden md:block mx-5">
-          <HeaderListGoogleIconList name="person" path={`/users/login`} list={<UserNavigationGroupUser loginState={loginState} SetLoginState={SetLoginState} /> }
+          <HeaderListGoogleIconList name="person" path={`/users/login`} list={<UserNavigationGroupUser loginState={loginState} SetLoginState={SetLoginState} />}
             title="アカウント"
 
           />
@@ -219,7 +223,8 @@ export const Header = () => {
 }
 
 
-const LoginState = (props:any) => {
+const LoginState = (props: any) => {
+  const router = useRouter()
   if (props.loginState === false) {
     return (
       <HeaderListText name="ログイン" path={`/users/login`} />
@@ -230,8 +235,16 @@ const LoginState = (props:any) => {
         <button type="button"
           onClick={() => {
             document.cookie = "status=login; path=/; max-age=0;";
-            alert("ログアウトしました。")
+            Swal.fire(
+              {
+                icon: 'success',
+                text: 'ログアウトしました！',
+                confirmButtonText: '　　OK　　',
+                confirmButtonColor : "#75ad9d"
+              }
+            )
             props.SetLoginState(false)
+            router.push("/items") 
           }}
         >ログアウト</button>
       </li>

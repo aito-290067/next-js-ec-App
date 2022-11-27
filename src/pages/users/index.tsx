@@ -11,6 +11,7 @@ import { NameInput } from 'components/Organisms/form/nameInput'
 import { AlternateEmail } from '@material-ui/icons'
 import { ConfirmPasswordInput } from 'components/Organisms/form/confirmPassword'
 import { useRouter } from 'next/router'
+import Swal from 'sweetalert2'
 
 
 
@@ -71,7 +72,7 @@ const clear = () => {
 }
 
 
- const register = () => {
+ const register = async() => {
   if (
     firstNameErrorState === "ok" &&
     lastNameErrorState === "ok" &&
@@ -84,6 +85,24 @@ const clear = () => {
     confirmPasswordErrorState === "ok"
     ) {
 
+      let password = `${passwordValue}flower`
+
+      const sha256 = async(text :any) => {
+        const msgUint8 = new TextEncoder().encode(text);                           // (utf-8 の) Uint8Array にエンコードする
+        const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);           // メッセージをハッシュする
+        const hashArray = Array.from(new Uint8Array(hashBuffer));                     // バッファーをバイト列に変換する
+        const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join(''); // バイト列を16進文字列に変換する
+        return hashHex;
+      }
+      
+      const hash  = async() =>{
+       const digestHex = await sha256(password);
+        console.log(digestHex);
+        password = digestHex
+      }
+
+      await hash()
+
 
       const data = {
         name: `${lastNameValue} ${firstNameValue}`,
@@ -93,10 +112,11 @@ const clear = () => {
         zip: zipValue,
         address: addressValue,
         tel: telValue,
-        password: passwordValue
+        // password: passwordValue
+        password: password
       };
 
-      fetch(`http://localhost:8000/users`, {
+      await fetch(`http://localhost:8000/users`, {
         method: "POST",
         headers: {
           'Content-Type': 'application/json'
@@ -105,10 +125,20 @@ const clear = () => {
       }).then((response) => {
         return response.json();
       }).then((data) => {
-        alert("登録が完了いたしました。");
+        // alert("登録が完了いたしました。");
+        Swal.fire(
+          {
+            icon: 'success',
+            text: '登録が完了いたしました',
+            confirmButtonText: '　　OK　　',
+            confirmButtonColor : "#75ad9d"
+          }
+        )
       }).then(() => {
         router.push("/users/login");
-      })
+      }).catch(error => {
+        console.error('通信に失敗しました', error);
+      });
     
   } else {
     SetErrorFlag("true");
@@ -145,6 +175,7 @@ const clear = () => {
             mailErrorState={mailErrorState} SetMailErrorState={SetMailErrorState}
             errorFlag={errorFlag}
             displayFlag={true}
+            register="register"
           />
           <hr />
 
@@ -156,7 +187,7 @@ const clear = () => {
 
           <ZipInput
             zipValue={zipValue} SetZipValue={SetZipValue} zipErrorState={zipErrorState} SetZipErrorState={SetZipErrorState}
-            errorFlag={errorFlag}
+            errorFlag={errorFlag} register="register"
           />
           <hr />
 
@@ -186,14 +217,14 @@ const clear = () => {
           />
 
 
-          <div className="items-center justify-center flex flex-wrap my-4 ">
+          <div className="items-center justify-center flex flex-wrap my-4  ">
 
-            <button type="button" className="text-white px-6 py-2 rounded-md text-sm mr-3 mt-5" style={{ backgroundColor: "#75ad9d", border: "solid 1px #75ad9d" }}
+            <button type="button" className="text-white px-14 py-2 rounded-md text-sm mr-7 mt-5" style={{ backgroundColor: "#75ad9d", border: "solid 1px #75ad9d" }}
               onClick={register}
             >登録</button>
 
 
-            <button type="reset" className="text-gray-900 px-4 py-2 rounded-md text-sm mt-5" style={{ color: "#75ad9d", border: "solid 1px #75ad9d" }} onClick={clear}>クリア</button>
+            <button type="reset" className="text-gray-900 px-10 py-2 rounded-md text-sm mt-5" style={{ color: "#75ad9d", border: "solid 1px #75ad9d" }} onClick={clear}>クリア</button>
           </div>
         </form>
       </div>

@@ -1,5 +1,5 @@
 import useSWR, { useSWRConfig } from 'swr';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useRouter } from "next/router";
 import { ItemCardsSide } from "components/Organisms/itemCards-side";
 import { RecognizeList } from "components/Organisms/recognizeList"
@@ -14,6 +14,7 @@ import { PayMethod } from 'components/Molecules/payMethod';
 import { DateOfDelivery } from 'components/Molecules/dateOfDelivery';
 import { ConfirmFrom } from 'components/Organisms/confirmFrom';
 import { createContext } from 'react';
+import { anyTypeAnnotation } from '@babel/types';
 
 
 const fetcher = (url: any) => fetch(url).then((res) => res.json());
@@ -30,15 +31,23 @@ export const Home = () => {
   // お届け情報変更　status
   const [ordererStateChange, SetordererStateChange] = useState(false)
 
-    // 注文者情報
-    const [ordererName, SetOrdererName] = useState("")
-    const [ordererFirstName, SetOrdererFirstName] = useState("")
-    const [ordererLastName, SetordererLastName] = useState("")
-    const [ordererMail, SetOrdererMail] = useState("")
-    const [ordererAddress, SetOrdererAddress] = useState("")
-    const [ordererTel, SetOrdererTel] = useState("")
-    const [ordererZip, SetOrdererZip] = useState("")
-    const [ordererPayMethod, SetOrdererPayMethod] = useState("現金払い")
+  // 注文者情報
+  const [ordererName, SetOrdererName] = useState("")
+  const [ordererFirstName, SetOrdererFirstName] = useState("")
+  const [ordererLastName, SetOrdererLastName] = useState("")
+  const [ordererMail, SetOrdererMail] = useState("")
+  const [ordererAddress, SetOrdererAddress] = useState("")
+  const [ordererTel, SetOrdererTel] = useState("")
+  const [ordererZip, SetOrdererZip] = useState("")
+  const [ordererPayMethod, SetOrdererPayMethod] = useState("現金払い")
+  // const ordererPayMethod= useRef("現金払い")
+
+  // 時間指定なし、時間指定あり、即日配送
+  // const [ordererDateState, SetOrdererDateState] = useState("時間指定なし")
+  const ordererDateState = useRef(["日時指定なし", "init", ""])
+
+
+
 
   // Form用
   const [lastNameValue, SetLastNameValue] = useState("");
@@ -62,7 +71,9 @@ export const Home = () => {
 
   const [errorFlag, SetErrorFlag] = useState("false");
 
-  const [orderUserInfoChange, SetOrderUserInfoChange ] = useState(false)
+  const [orderUserInfoChange, SetOrderUserInfoChange] = useState(false)
+
+  const [dateErrorState, SetDateErrorState] = useState("init");
 
 
   useEffect(() => {
@@ -76,13 +87,13 @@ export const Home = () => {
 
     list.map((cookieData, index) => {
       // ゲストID取得
-      if (cookieData.includes(" gestId")) {
+      if (cookieData.includes(" gestId") || cookieData.includes("gestId")) {
         SetGestIdValue(cookieData[1]);
       }
 
     })
 
-  }, [])
+  })
 
   const router = useRouter();
   const { data, error, mutate } = useSWR(
@@ -109,7 +120,7 @@ export const Home = () => {
 
         return (
           <>
-            <div className='bg-gray-100 pt-5 grid grid-cols-7'>
+            <div className='bg-gray-100 pt-5 grid grid-cols-7 rounded-md'>
               <div className='col-span-6'>
 
                 <UserInfomation
@@ -126,14 +137,14 @@ export const Home = () => {
                 />
 
                 <PayMethod ordererPayMethod={ordererPayMethod} />
-                <DateOfDelivery />
+                <DateOfDelivery ordererDateState={ordererDateState} />
               </div>
 
               <div className="flex flex-wrap justify-center items-center">
                 <button className={`mx-1  rounded-lg py-1 px-2 h-8 w-12 ${styles.changeButtonItemCards}`}
                   onClick={() => {
                     SetordererStateChange(true)
-                    SetordererLastName(data[0].lastName)
+                    SetOrdererLastName(data[0].lastName)
                     SetOrdererFirstName(data[0].firstName)
                     SetOrdererMail(data[0].mail)
                     SetOrdererAddress(data[0].address)
@@ -146,7 +157,9 @@ export const Home = () => {
                     SetZipErrorState("ok")
                     SetTelErrorState("ok")
                     SetAddressErrorState("ok")
-                    
+
+                    ordererDateState.current[0] = "日時指定なし"
+
 
                   }}
                 > 変更</button>
@@ -158,7 +171,7 @@ export const Home = () => {
         return <></>
       }
     } else {
- 
+
       return (
         <>
 
@@ -186,12 +199,14 @@ export const Home = () => {
             errorFlag={errorFlag}
 
             SetOrdererName={SetOrdererName}
-            SetordererFirstName={SetOrdererFirstName}
-            SetordererLastName={SetordererLastName}
+            SetOrdererFirstName={SetOrdererFirstName}
+            SetOrdererLastName={SetOrdererLastName}
             SetOrdererMail={SetOrdererMail}
             SetOrdererAddress={SetOrdererAddress}
             SetOrdererTel={SetOrdererTel}
             SetOrdererZip={SetOrdererZip}
+            SetOrdererPayMethod={SetOrdererPayMethod}
+            // SetOrdererDateState={SetOrdererDateState}
             ordererName={ordererName}
             ordererLastName={ordererLastName}
             ordererFirstName={ordererFirstName}
@@ -200,6 +215,10 @@ export const Home = () => {
             ordererTel={ordererTel}
             ordererZip={ordererZip}
             ordererPayMethod={ordererPayMethod}
+            ordererDateState={ordererDateState}
+
+            SetDateErrorState={SetDateErrorState}
+            dateErrorState={dateErrorState}
 
             SetordererStateChange={SetordererStateChange}
             SetOrderUserInfoChange={SetOrderUserInfoChange}
@@ -218,7 +237,7 @@ export const Home = () => {
       <div>
 
         <div className=" flex flex-wrap justify-center items-center mt-7">
-          <h1 className="" style={{ color: "#75ad9d", fontSize: "30px" }}>注文内容の確認</h1>
+          <h1 className="text-[#75ad9d] text-[30px]" >注文内容の確認</h1>
         </div>
 
 
@@ -227,36 +246,79 @@ export const Home = () => {
           <ShoppingList
             pageName="confirm" />
 
-          <div className={`${style.gridWidth} `}>
+          <div className={` md:w-[800px] h-auto`}>
             <h2 className="mb-3 text-xl">お届け先情報</h2>
 
             <OrdererInformation />
 
           </div>
 
-          <button className="bg-red-700 text-white rounded-lg p-2  mt-12 h-12 w-80 shadow-lg" onClick={() => {
+          <button className="bg-[#75ad9d] text-white rounded-lg py-4  mt-24  w-[70%] sm:w-[450px] md:w-[500px] xl:w-[600px] 2xl:w-[600px] shadow-md focus:shadow-none focus:opacity-70" onClick={async () => {
             const orderData = data;
             const gestID = gestIdValue;
+            const orderItemsList: any = [];
+
+            await fetch(`http://localhost:8000/carts?gestId=${gestIdValue}`)
+              .then((res) => {
+                return res.json();
+              }).then((data) => {
+                orderItemsList.push(data);
+              }).catch(error => {
+                console.error('通信に失敗しました', error);
+              });
+
+            console.log("q", orderItemsList)
+            let totalPrice = 0;
+            orderItemsList.map((data: any, index: number) => {
+              data.map((items: any, index: number) => {
+                totalPrice = totalPrice + Number(items.orderPrice)
+              })
+              // totalPrice = Number(totalPrice) + Number(data.orderPrice)
+            })
+
+            
             const ordererInformation = {
               name: ordererName,
               mail: ordererMail,
               address: ordererAddress,
               zip: ordererZip,
               tel: ordererTel,
-              payMethod: ordererPayMethod
+              orderDate: ordererDateState.current[4],
+              payMethod: ordererPayMethod,
+              totalPrice: totalPrice,
+              DeliverySelect: ordererDateState.current[0],
+              DeliveryDate: ordererDateState.current[5],
+              orderItems: orderItemsList
             }
 
-            fetch(`http://localhost:8000/order`, {
+
+            await fetch(`http://localhost:8000/order`, {
               method: "POST",
               headers: {
                 'Content-Type': 'application/json'
               },
               body: JSON.stringify({ orderData, gestID, ordererInformation })
             }).then((response) => {
-              return response.json();
+                return response.json();
             }).then((data) => {
-              router.push("/carts/finish");
-            })
+              router.replace("/carts/finish");    
+            }).catch(error => {
+              console.error('通信に失敗しました', error);
+            });
+
+            // カートのデータを削除
+            // await fetch(`http://localhost:8000/carts/?gestId=${gestIdValue}`, {
+            //   method: "DELETE",
+            //   headers: {
+            //     'Content-Type': 'application/json'
+            //   }
+            // }).then((response) => {
+            //   return response.json();
+            // }).then((data) => {
+            //   // router.replace("/carts/finish");
+            //   console.log("b", gestIdValue)
+            //   console.log("b", data)
+            // })
           }}> 注文を確定する</button>
 
 

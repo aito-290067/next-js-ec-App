@@ -5,8 +5,13 @@ import { ZipInput } from 'components/Organisms/form/zipInput'
 import { AddressInput } from 'components/Organisms/form/addressInput'
 import { PasswordInput } from 'components/Organisms/form/passwordInput'
 import { NameInput } from 'components/Organisms/form/nameInput'
+import PaymethodInput from './form/paymethodInput'
+import { useState } from 'react'
+import { DateInput } from './form/dateInput'
 
-export const ConfirmFrom = (props:any) => {
+export const ConfirmFrom = (props: any) => {
+
+
   return (
     <>
       <div className="container flex flex-wrap justify-center items-center mx-auto py-5 px-5 bg-white-100 my-12">
@@ -22,11 +27,11 @@ export const ConfirmFrom = (props:any) => {
             SetLastNameErrorState={props.SetLastNameErrorState}
             errorFlag={props.errorFlag}
 
-            SetordererFirstName={props.SetOrdererFirstName}
-            SetordererLastName={props.SetordererLastName}
+            SetOrdererFirstName={props.SetOrdererFirstName}
+            SetOrdererLastName={props.SetOrdererLastName}
             ordererLastName={props.ordererLastName}
             ordererFirstName={props.ordererFirstName}
-            // SetOrdererName={props.SetOrdererName}
+          // SetOrdererName={props.SetOrdererName}
           />
           <hr />
 
@@ -54,16 +59,30 @@ export const ConfirmFrom = (props:any) => {
           />
           <hr />
 
+          <PaymethodInput SetOrdererPayMethod={props.SetOrdererPayMethod} />
+          <hr />
+
+          <DateInput 
+          ordererDateState={props.ordererDateState} 
+          SetDateErrorState={props.SetDateErrorState} 
+          SetOrdererDate={props.SetOrdererDate}
+          ordererDate={props.ordererDate}
+          errorFlag={props.errorFlag}  />
+
+
           <div className="items-center justify-center flex flex-wrap my-4 ">
 
-            <button type="button" className="text-white px-6 py-2 rounded-md text-sm mr-3 mt-5 w-96" style={{ backgroundColor: "#75ad9d", border: "solid 1px #75ad9d" }}
+            <button type="button" className="text-white px-6 py-3 rounded-md text-sm mr-3 mt-5 w-96 bg-[#75ad9d] shadow-md focus:shadow-none focus:opacity-70"
               onClick={() => {
                 if (
                   props.firstNameErrorState === "ok" &&
                   props.lastNameErrorState === "ok" &&
                   props.telErrorState === "ok" &&
                   props.zipErrorState === "ok" &&
-                  props.addressErrorState === "ok"
+                  props.addressErrorState === "ok" &&
+                  // props.dateErrorState === "ok"
+                  props.ordererDateState.current[1] == "ok" ||
+                  props.ordererDateState.current[1] == "init"
                 ) {
                   console.log(props.ordererTel)
                   props.SetOrdererName(`${props.ordererLastName} ${props.ordererFirstName}`)
@@ -81,7 +100,7 @@ export const ConfirmFrom = (props:any) => {
 
           </div>
         </form>
-      </div>
+      </div >
     </>
   )
 }

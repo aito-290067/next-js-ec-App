@@ -130,7 +130,9 @@ export const PasswordInput = (props: {
           />
         </div>
         <div>
-          <input type="password" className="password border mr-4 py-1 px-3 rounded-md w-full focus:outline-none focus:ring-2 z-1 h-10" id="password" required style={{ width: "430px" }} onChange={onChangeHandler}
+          <input type="password" className="password border mr-4 py-1 px-3 rounded-md w-full focus:outline-none focus:ring-2 z-1 h-10" id="password" required style={{ width: "430px" }} 
+          // onChange={onChangeHandler}
+          onChange={onChangeHandler}
           placeholder="例）Password123"
           autoComplete="new-password"
           />

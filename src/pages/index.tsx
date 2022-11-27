@@ -49,9 +49,7 @@ export const Home = ({data}:any) => {
             <div className="float-right " style={{ height: "100%" }} >
 
               <NewItemsSection />
-              <ItemsSection />
               <RecognizeItesSection />
-              <ItemsSection />
               <Information />
               <Map />
 

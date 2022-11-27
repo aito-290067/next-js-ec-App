@@ -10,6 +10,7 @@ import { Loader } from "components/Atoms/loader";
 import { SearchNavigationbar } from "components/Organisms/searchNavigationbar";
 import { Transform } from "@material-ui/icons";
 import ModalWindow from "../../../components/Organisms/modal"
+import Countup from 'react-countup'
 
 
 
@@ -31,6 +32,9 @@ export const Home = () => {
   // routerで引き渡された値をセット
   if (router.query.category) {
     categoryWord = router.query.category;
+  } else {
+    // リンクで飛んだ場合
+    categoryWord = "全ての商品";
   }
 
 
@@ -49,11 +53,11 @@ export const Home = () => {
     </>
   );
 
-  console.log(categoryWord.length)
+  // console.log(categoryWord.length)
   const categoryitemList: any = [];
   // カテゴリ検索
   data.map((ItemData: any, index: number) => {
-    if (categoryWord.length !== 0) {
+    if (categoryWord !== "全ての商品") {
       if (ItemData.category.includes(categoryWord)) {
         categoryitemList.push(ItemData)
       }
@@ -103,10 +107,7 @@ export const Home = () => {
   }
 
 
-
-
-
-  console.log(categoryitemList)
+  // console.log(categoryitemList)
 
   const itemList: any = [];
   // フォームで検索
@@ -141,24 +142,24 @@ export const Home = () => {
 
   // 該当商品がない場合、全ての商品を表示
   const SearchItemsNone = (props: any) => {
-    console.log(itemList.length)
+    // console.log(itemList.length)
     if (itemList.length === 0) {
       return (
         <>
-          
-        {data.map((itemData: any, index: number)=>{
-          return(
-            <ItemCardsWrap name={itemData.name} price={itemData.price} imagePath={itemData.imagePath} key={index} id={itemData.id} />
-          )
-        })}
+
+          {data.map((itemData: any, index: number) => {
+            return (
+              <ItemCardsWrap name={itemData.name} price={itemData.price} imagePath={itemData.imagePath} key={index} id={itemData.id} />
+            )
+          })}
           {(() => {
 
             // if (itemList.length === 0) {
-              // data.map((itemData: any, index: number) => {
-              //   return (
-              //     <ItemCardsWrap name={itemData.name} price={itemData.price} imagePath={itemData.imagePath} key={index} id={itemData.id} />
-              //   )
-              // })
+            // data.map((itemData: any, index: number) => {
+            //   return (
+            //     <ItemCardsWrap name={itemData.name} price={itemData.price} imagePath={itemData.imagePath} key={index} id={itemData.id} />
+            //   )
+            // })
             // }
             // if (categoryitemList.length !== 0) {
             //   categoryitemList.map((itemData: any, index: number) => {
@@ -186,7 +187,7 @@ export const Home = () => {
     }
   }
 
-
+  mutate()
   return (
     <>
 
@@ -195,13 +196,21 @@ export const Home = () => {
 
         <div className=" flex flex-nowrap " style={{ height: "100%" }} >
 
-          <div className="hidden md:flex">
+          <div className="hidden md:flex  flex-col">
+              <p className=" text-md mb-4"><span className="">Home</span> &gt; {categoryWord}</p>
+            <div className="bg-gray-100 rounded-md w-48 py-1 ">
+              <h3 className="bg-gray-100 flex   
+              rounded-md
+              justify-center items-end mx-auto h-12 pb-1">該当商品<span className="mx-4 translate-y-2 text-[#75ad9d] text-[30px]" >
+              <Countup end={itemList.length} duration={0.3}/>
+              </span>件</h3>
+            </div>
             <SearchNavigationbar />
           </div>
 
           <div className="float-right " style={{ height: "100%" }}>
             <div className="container flex flex-wrap justify-center items-center mx-auto pt-5 px-5  ">
-              <SearchForm setSearchWord={setSearchWord} setSearchState={setSearchState} />
+              <SearchForm setSearchWord={setSearchWord} setSearchState={setSearchState} categoryWord={categoryWord} mutate={mutate} />
             </div>
             <div className=" flex flex-wrap justify-center items-center mr-36   ">
               <ErrorMessage />
@@ -212,8 +221,20 @@ export const Home = () => {
                 <li className="mr-4 ">
                   <button type="button" className="border-b 
                   text-gray-400
-                  focus:text-gray-900
-                  focus:border-gray-900 text-md"
+                  focus:text-[#75ad9d]
+                  focus:border-[#75ad9d] text-md"
+                    onClick={() => {
+                      setSort("おすすめ")
+                    }}
+                  >
+                    おすすめ順
+                  </button>
+                </li>
+                <li className="mr-4 ">
+                  <button type="button" className="border-b 
+                  text-gray-400
+                  focus:text-[#75ad9d]
+                  focus:border-[#75ad9d] text-md"
                     onClick={() => {
                       setSort("人気")
                     }}
@@ -224,8 +245,8 @@ export const Home = () => {
                 <li className="mr-4 ">
                   <button type="button" className="border-b 
                   text-gray-400
-                  focus:text-gray-900
-                  focus:border-gray-900 text-md"
+                  focus:text-[#75ad9d]
+                  focus:border-[#75ad9d] text-md"
                     onClick={() => {
                       setSort("安い")
                     }}
@@ -237,8 +258,8 @@ export const Home = () => {
                 <li className="mr-4 ">
                   <button type="button" className="border-b 
                   text-gray-400
-                  focus:text-gray-900
-                  focus:border-gray-900 text-md"
+                  focus:text-[#75ad9d]
+                  focus:border-[#75ad9d] text-md"
                     onClick={() => {
                       setSort("高い")
                     }}
@@ -246,18 +267,7 @@ export const Home = () => {
                     価格が高い順
                   </button>
                 </li>
-                <li className="mr-1 ">
-                  <button type="button" className="border-b 
-                  text-gray-400
-                  focus:text-gray-900
-                  focus:border-gray-900 text-md"
-                    onClick={() => {
-                      setSort("おすすめ")
-                    }}
-                  >
-                    おすすめ順
-                  </button>
-                </li>
+
               </ul>
             </div>
 
@@ -272,7 +282,7 @@ export const Home = () => {
               {
                 itemList.map((itemData: any, index: number) => {
                   return (
-                    <ItemCardsWrap name={itemData.name} price={itemData.price} imagePath={itemData.imagePath} key={index} id={itemData.id} />
+                    <ItemCardsWrap name={itemData.name} price={itemData.price} imagePath={itemData.imagePath} key={index} id={itemData.id} data={itemData} />
                   )
                 })
               }
