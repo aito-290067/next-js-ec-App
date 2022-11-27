@@ -6,29 +6,35 @@
 ## 使用言語・フレームワーク・ライブラリ
 - Next.js
 - TypeScript
-- Tailwind css
+- Tailwind CSS
 - Swiper
+- Sweetalert2
+- react-countup
 
 
 ##  画面構成
 1. 商品詳細画面
 1. 商品一覧画面
-1. トップページ
+1. トップ画面
 1. 新規登録画面
 1. ログイン画面
 1. カート画面
 1. 注文確認画面
 1. 注文完了画面
+1. お気に入り画面
 
 ## Demo
 ### 商品一覧画面
-![alt用テキスト](/public/商品一覧画面２.png)
+![alt用テキスト](/public/商品一覧画面3.png)
 
-### トップページ
-![alt用テキスト](/public/トップ画面２.png)
+### トップ画面
+![alt用テキスト](/public/トップ画面3.png)
 
 ### 商品詳細画面
-![alt用テキスト](/public/商品詳細画面２.png)
+![alt用テキスト](/public/商品詳細画面3.png)
+
+### カート画面
+![alt用テキスト](/public/ショッピングカート3.png)
 
 ### 新規登録画面
-![alt用テキスト](/public/新規登録画面.png)
+![alt用テキスト](/public/新規登録画面3.png)

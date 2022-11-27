@@ -21,51 +21,84 @@ const Error3 = (props: any) => {
 
 
 export const NameInput = (props: any) => {
+
+  // confirmでの初期値設定
   let lastName = ""
   let firstName = ""
-
-  if(props.ordererName && props.SetOrdererLastName && props.SetOrdererFirstName){
-    let split = props.ordererName.split(" ")
-    props.SetOrdererLastName(split[0])
-    props.SetOrdererFirstName(split[1])
-    
-  }
 
 
   if (props.ordererFirstName) {
     firstName = props.ordererFirstName
   }
-  
+
   if (props.ordererLastName) {
     lastName = props.ordererLastName
   }
 
 
+  // registerはonChange
   const onChangeHandlerLast = (ev: ChangeEvent<HTMLInputElement>) => {
-    props.SetLastNameValue(ev.target.value);
+    if (!props.SetOrdererLastName) {
+      props.SetLastNameValue(ev.target.value);
 
-    if(props.SetOrdererLastName){
-      props.SetordererLastName(ev.target.value)
+      if (!(ev.target.value)) {
+        props.SetLastNameErrorState("empty");
+      } else {
+        props.SetLastNameErrorState("ok");
+      }
     }
-    if (!(ev.target.value)) {
-      props.SetLastNameErrorState("empty");
-    } else {
-      props.SetLastNameErrorState("ok");
+  }
+
+  // confirmはonBlur
+  const onBlurHandlerLast = (ev: ChangeEvent<HTMLInputElement>) => {
+    if (props.SetOrdererLastName) {
+
+      props.SetLastNameValue(ev.target.value);
+
+      if (props.SetOrdererLastName) {
+        props.SetOrdererLastName(ev.target.value)
+      }
+      if (props.ordererLastName) {
+        lastName = props.ordererLastName
+      }
+
+
+      if (!(ev.target.value)) {
+        props.SetLastNameErrorState("empty");
+      } else {
+        props.SetLastNameErrorState("ok");
+      }
     }
   }
 
   const onChangeHandlerFirst = (ev: ChangeEvent<HTMLInputElement>) => {
-    props.SetFirstNameValue(ev.target.value);
+    if (!props.SetOrdererLastName) {
+      props.SetFirstNameValue(ev.target.value);
 
-    
-    if(props.SetordererFirstName){
-      props.SetordererFirstName(ev.target.value)
+      if (!(ev.target.value)) {
+        props.SetFirstNameErrorState("empty");
+      } else {
+        props.SetFirstNameErrorState("ok");
+      }
     }
+  }
 
-    if (!(ev.target.value)) {
-      props.SetFirstNameErrorState("empty");
-    } else {
-      props.SetFirstNameErrorState("ok");
+  const onBlurHandlerFirst = (ev: ChangeEvent<HTMLInputElement>) => {
+    if (props.SetOrdererLastName) {
+      props.SetFirstNameValue(ev.target.value);
+
+      if (props.SetOrdererFirstName) {
+        props.SetOrdererFirstName(ev.target.value)
+      }
+      if (props.ordererFirstName) {
+        firstName = props.ordererFirstName
+      }
+
+      if (!(ev.target.value)) {
+        props.SetFirstNameErrorState("empty");
+      } else {
+        props.SetFirstNameErrorState("ok");
+      }
     }
   }
 
@@ -83,11 +116,18 @@ export const NameInput = (props: any) => {
         </div>
         <div>
           <input type="text" className="name border mr-4 py-1 px-3 rounded-md    focus:border focus:border-gray-100  focus:outline-none focus:ring-2 z-1 h-10
-              " id="nameForm1" placeholder="例）田中" onBlur={onChangeHandlerLast} 
-              defaultValue={lastName}
-              />
-          <input type="text" className="name border mr-4 py-1 px-3 rounded-md focus:outline-none focus:ring-2 z-1 h-10" id="nameForm2" placeholder="例）太郎" onBlur={onChangeHandlerFirst} 
-          defaultValue={firstName}
+              " id="nameForm1" placeholder="例）田中"
+            onBlur={onBlurHandlerLast}
+            onChange={onChangeHandlerLast}
+            defaultValue={lastName}
+            autoComplete="family-name"
+          />
+          <input type="text" className="name border mr-4 py-1 px-3 rounded-md focus:outline-none focus:ring-2 z-1 h-10" id="nameForm2" placeholder="例）太郎"
+            onBlur={onBlurHandlerFirst}
+            onChange={onChangeHandlerFirst}
+            // defaultValue={firstName}
+            defaultValue={firstName}
+            autoComplete="given-name"
           />
         </div>
       </div>

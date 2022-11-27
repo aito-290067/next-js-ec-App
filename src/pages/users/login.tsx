@@ -5,6 +5,9 @@ import { MailInput } from 'components/Organisms/form/mailInput'
 import { PasswordInput } from 'components/Organisms/form/passwordInput'
 import { useState } from 'react'
 import { useRouter } from 'next/router'
+import ModalWindow from 'components/Organisms/modal'
+import Swal from 'sweetalert2'
+
 
 
 export const Home = () => {
@@ -24,37 +27,41 @@ export const Home = () => {
   const router = useRouter();
 
 
-  useEffect(()=>{
+  useEffect(() => {
 
     const splitCookie = document.cookie.split(';');
     const list = [];
 
-  for (let i = 0; i < splitCookie.length; i++) {
-    list.push(splitCookie[i].split('='));
-  }
-  
-  list.map((data, index) => {
-    if (data.includes("login")) {
-      SetLoginStatus(true)
-    }
-    // ゲストID付与
-    if (data.includes(" gestId")) {
-      SetGestIdValue(data[1]);
+    for (let i = 0; i < splitCookie.length; i++) {
+      list.push(splitCookie[i].split('='));
     }
 
-    if (data.includes(" carts")) {
-      SetCartStatus(data[1]);
-    }
-  })
-},[])
-  
-  const loginStatusRegister = (props: any) => {
+    list.map((data, index) => {
+      if (data.includes("login")) {
+        SetLoginStatus(true)
+      }
+      // ゲストID付与
+      if (data.includes(" gestId") || data.includes("gestId")) {
+        SetGestIdValue(data[1]);
+      }
 
+      if (data.includes(" carts") || data.includes("carts")) {
+        SetCartStatus(data[1]);
+      }
+    })
+  }, [])
+
+  const loginStatusRegister = async(props: any) => {
+   
     // ログインしているか判定
     if (loginStatus === false) {
       console.log(`put前 ${gestIdValue}`)
+
+
       const data = {
         name: props[0].name,
+        lastName: props[0].lastName,
+        firstName: props[0].firstName,
         mail: props[0].mail,
         zip: props[0].zip,
         address: props[0].address,
@@ -76,33 +83,50 @@ export const Home = () => {
         return response.json();
       }).then((data) => {
         console.log(data);
-      }).then(() => {
-        if(cartStatus === "confirm"){
+      }).then((cookie) => {
+        document.cookie = "status=login; path=/;";
+      }).then((alerts) => {
+        // alert("ログインしました。");
+        Swal.fire(
+          {
+            icon: 'success',
+            text: 'ログインしました！',
+            confirmButtonText: '　　OK　　',
+            confirmButtonColor: "#75ad9d"
+          }
+        )
+      }).then((route) => {
+        if (cartStatus === "confirm") {
           router.push("/carts/confirm");
-          document.cookie = 'status=shopping; max-age=0; path=/';
-        }else{
+          document.cookie = 'carts=shopping; path=/; max-age=0;';
+        } else {
           router.push("/items");
         }
-      }).then(() => {
-        alert("ログインしました。");
-          document.cookie = "status=login; path=/;";
-      })
+      }).catch(error => {
+        console.error('通信に失敗しました', error);
+      });
 
     } else {
-      alert("既にログインしています")
+      // alert("既にログインしています")
+      Swal.fire(
+        {
+          icon: 'error',
+          text: '既にログインしています',
+          confirmButtonText: '　　OK　　',
+          confirmButtonColor: "#75ad9d"
+        }
+      )
     }
 
   }
 
 
-
+  {/* <ModalWindow modal={true}/> */ }
   return (
     <>
-      {/* <div className=" flex flex-wrap justify-center items-center mt-7">
-        <h1 className="text-bold " style={{ color: "#75ad9d", fontSize: "30px" }}>ログイン</h1>
-      </div> */}
 
-      <div className="container flex flex-wrap justify-center items-center mx-auto py-5 px-5 bg-white-100 my-12">
+
+      <div className="container flex flex-wrap justify-center items-center mx-auto pt-10 px-5 bg-white-100 my-12 mb-64 ">
 
         <div className="bg-gray-50 p-4 rounded-xl ">
 
@@ -133,25 +157,60 @@ export const Home = () => {
                 onClick={async () => {
                   SetErrorFlag("true");
 
+                  let password = `${passwordValue}flower`
+                  const sha256 = async(text :any) => {
+                    const msgUint8 = new TextEncoder().encode(text);                           // (utf-8 の) Uint8Array にエンコードする
+                    const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);           // メッセージをハッシュする
+                    const hashArray = Array.from(new Uint8Array(hashBuffer));                     // バッファーをバイト列に変換する
+                    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join(''); // バイト列を16進文字列に変換する
+                    return hashHex;
+                  }
+                  
+                  const hash  = async() =>{
+                   const digestHex = await sha256(password);
+                    console.log(digestHex);
+                    password = digestHex
+                  }
+            
+                  await hash()
+
                   if (mailErrorState === "ok" &&
                     passwordErrorState === "ok"
                   ) {
-                    console.log("")
-                    await fetch(`http://localhost:8000/users?mail=${mailValue}&&password=${passwordValue}`)
+                    console.log(password)
+                    await fetch(`http://localhost:8000/users?mail=${mailValue}&&password=${password}`)
                       .then(response => response.json())
                       .then((data) => {
                         if (data.length === 0) {
-                          alert("メールアドレスかパスワードが違います。");
+                          // alert("メールアドレスかパスワードが違います。");
+                          Swal.fire(
+                            {
+                              icon: 'error',
+                              text: 'メールアドレスかパスワードが違います。',
+                              confirmButtonText: '　　OK　　',
+                              confirmButtonColor: "#75ad9d"
+                            }
+                          )
                         } else {
-                          if (data[0].mail === mailValue && data[0].password === passwordValue) {
+                          if (data[0].mail === mailValue && data[0].password === password) {
                             // alert("ログインしました。");
                             loginStatusRegister(data)
                             // console.log(data)
                           } else {
-                            alert("メールアドレスかパスワードが違います。");
+                            // alert("メールアドレスかパスワードが違います。");
+                            Swal.fire(
+                              {
+                                icon: 'error',
+                                text: 'メールアドレスかパスワードが違います。',
+                                confirmButtonText: '　　OK　　',
+                                confirmButtonColor: "#75ad9d"
+                              }
+                            )
                           }
                         }
-                      })
+                      }).catch(error => {
+                        console.error('通信に失敗しました', error);
+                      });
                     // .catch(error => {
                     //   alert("メールアドレスかパスワードが違います。c");
                     // });

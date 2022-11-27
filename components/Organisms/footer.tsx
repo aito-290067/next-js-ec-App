@@ -3,22 +3,55 @@ import Image from "next/image";
 import Link from "next/link";
 import style from "../../src/styles/footer.module.css"
 
+
 export const Footer = () => {
+  const Twitter = "/logo/Twitter.png"
+  const Instagram = "/logo/Instagram.png"
+  const Facebook = "/logo/facebook.png"
 
   return (
     <>
-
-
-      {/* <nav className="px-2 bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">  ${style.bgFooter}*/}
-
-        <div className="container flex flex-wrap justify-center items-center mx-auto py-5 px-5  bg-gray-50">
-          <ul>
-            <li className="float-left mx-5">Twitter</li>
-            <li className="float-left mx-5">Instagram</li>
-            <li className="float-left mx-5">Facebook</li>
-          </ul>
-        </div>
-      <div className="container flex flex-wrap justify-center items-center mx-auto py-5 px-5  bg-gray-50">
+      <div className=" flex flex-wrap justify-center items-center mx-auto py-5 px-5  bg-gray-50">
+        <ul>
+          <li className="float-left mx-5 ">
+            <Link href="https://twitter.com/">
+              <a >
+                <Image
+                  src={Twitter}
+                  alt="twitter"
+                  width={50}
+                  height={50}
+                />
+              </a>
+            </Link>
+          </li>
+          <li className="float-left mx-5">
+            <Link href="https://www.instagram.com/">
+              <a >
+                <Image
+                  src={Instagram}
+                  alt="instagram"
+                  width={50}
+                  height={50}
+                />
+              </a>
+            </Link>
+          </li>
+          <li className="float-left mx-5">
+            <Link href="https://ja-jp.facebook.com/">
+              <a >
+                <Image
+                  src={Facebook}
+                  alt="facebook"
+                  width={50}
+                  height={50}
+                />
+              </a>
+            </Link>
+          </li>
+        </ul>
+      </div>
+      <div className=" sm:block sm:flex flex-wrap justify-center items-center mx-auto py-5 px-5  bg-gray-50 hidden">
         <ul className="text-gray-400">
           <li className="float-left mx-5">会社概要</li>
           <li className="float-left mx-5">採用情報</li>

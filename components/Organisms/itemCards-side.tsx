@@ -1,7 +1,10 @@
 import Image from "next/image"
 import style from "../../src/styles/itemCards.module.css"
-
-
+import { useState } from "react"
+import { useEffect } from "react"
+import { ChangeHistory } from "@material-ui/icons"
+import { Router, useRouter } from "next/router";
+import Link from "next/link"
 
 const ItemCardsSideImage = (props: { imagePath: string }) => {
   return (
@@ -30,11 +33,11 @@ const ItemCardsSideName = (props: { name: string }) => {
   )
 }
 
-const ItemCardsSidePrice = (props: { price: number }) => {
+const ItemCardsSidePrice = (props: { price: any }) => {
   return (
     <>
       <div className=' text-center justify-center flex flex-wrap  items-center'>
-        <p>￥{props.price}</p>
+        <p className="text-md">{Number(props.price).toLocaleString()} <span className="text-sm">円（税込）</span></p>
       </div>
     </>
   )
@@ -50,41 +53,114 @@ const ItemCardsSideQuentity = (props: { quentity: number | string }) => {
   )
 }
 
-const ItemCardsSideCount = (props:any) => {
-  // quantityAdd={quantityAdd}
-  // setQuantityAdd={setQuantityAdd}
+const ItemCardsSideCount = (props: any) => {
+
+  // const router = useRouter();
+  const change = () =>{
+    const addCartItems = {
+      name: props.name,
+      price: props.price,
+      orderPrice : props.itemsPriceChange,
+      quantity: props.quantityAdd,
+      imagePath: props.imagePath,
+      gestId: props.gestId,
+      id:props.id
+    };
+
+
+    fetch(`http://localhost:8000/carts/${props.id}`, {
+      method: "PUT",
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(addCartItems)
+    }).then((response) => {
+      return response.json();
+    }).catch(error => {
+      console.error('通信に失敗しました', error);
+    });
+  }
+  
+  change()
+
   return (
     <>
-      <button className={`float-right text-blue-500 border border-gray-200 rounded-l-sm bg-gray-100 text-center  w-6`}
-      onClick={()=>{
-        props.setQuantityAdd(Number(props.quantityAdd) - 1)
-      }}
-      >－</button>
-      <div className={`float-right border-y border-gray-200  w-7 text-center `} >{props.quantity}</div>
-      <button className={`float-right  text-blue-500 border border-gray-200 rounded-r-sm bg-gray-100 text-center  w-6`}
-      onClick={()=>{
-        props.setQuantityAdd(Number(props.quantityAdd) + 1)
-      }}
+      <button className={`float-right text-[#75ad9d] border border-gray-200 rounded-l-sm bg-gray-100 text-center  w-6`}
+        onClick={() => {
+          if(props.quantityAdd > 1){
+            props.setItemsPriceChange(Number(props.itemsPriceChange) - Number(props.price) )
+            props.setQuantityAdd(Number(props.quantityAdd) - 1)
+            props.setTotalPrice(Number(props.totalPrice) -  Number(props.price)  )
+          }
+          
+            // change()
+            // router.push("/carts")
+          
+        }}
+        >－</button>
+      <div className={`float-right border-y border-gray-200  w-7 text-center `} >{props.quantityAdd}</div>
+      <button className={`float-right  text-[#75ad9d] border border-gray-200 rounded-r-sm bg-gray-100 text-center  w-6`}
+        onClick={() => {
+          
+          props.setItemsPriceChange(Number(props.itemsPriceChange) + Number(props.price))
+          props.setQuantityAdd(Number(props.quantityAdd) + 1)
+          props.setTotalPrice(Number(props.totalPrice) + Number(props.price))
+          // props.setItemsPriceChange(props.itemsPriceChange * props.quantityAdd)
+          // router.push("/carts")
+          // change()
+        }}
       >＋</button>
     </>
   )
 }
 
 
-export const ItemCardsSide = (props: any) => {
 
+
+
+export const ItemCardsSide = (props: any) => {
+  const router = useRouter();
+
+  const [quantityAdd, setQuantityAdd] = useState(1)
+  const [itemsPriceChange, setItemsPriceChange] = useState(props.price)
+
+
+  const deleteItems = () => {
+    fetch(`http://localhost:8000/carts/${props.id}`,{
+      method: "DELETE" ,
+    }).then((response) => {
+      console.log(props.id);
+      props.mutate()
+    }).catch(error => {
+      console.error('通信に失敗しました', error);
+    });
+  }
+  
+  props.mutate()
   if (props.pageName === "confirm") {
     return (
       <>
         <ItemCardsSideImage imagePath={props.imagePath} />
         <div className=' container m-auto justify-center items-center col-span-2 '>
           <ItemCardsSideName name={props.name} />
-          <ItemCardsSideQuentity quentity={props.quantity} />
+          <ItemCardsSideQuentity
+            quentity={props.quantity}
+          />
 
         </div>
-        <ItemCardsSidePrice price={props.price} />
+ 
+        <ItemCardsSidePrice price={props.orderPrice} />
         <div className=' container flex flex-wrap justify-center items-center  '>
-          <button className={`mx-1  rounded-lg py-1 px-2 ${style.changeButtonItemCards}`}> 変更</button>
+          {/* <Link href="/carts" >
+          <a className={`mx-1  rounded-lg py-1 px-2 ${style.changeButtonItemCards}`}>
+            変更
+          </a>
+          </Link> */}
+          {/* <button className={`mx-1  rounded-lg py-1 px-2 ${style.changeButtonItemCards}`} onClick={
+            ()=>{
+              router.replace("/carts")
+            }
+          }> 変更</button> */}
         </div>
 
       </>
@@ -95,16 +171,26 @@ export const ItemCardsSide = (props: any) => {
       <>
         <ItemCardsSideImage imagePath={props.imagePath} />
         <ItemCardsSideName name={props.name} />
-        <ItemCardsSidePrice price={props.price} />
+        <ItemCardsSidePrice price={props.orderPrice} />
 
         <div className=' container flex flex-wrap justify-center items-center '>
-          <ItemCardsSideCount 
-          quantity={props.quantity}
-          quantityAdd={props.quantityAdd}
-          setQuantityAdd={props.setQuantityAdd}
+          <ItemCardsSideCount
+            quantityAdd={quantityAdd}
+            setQuantityAdd={setQuantityAdd}
+            itemsPriceChange={itemsPriceChange}
+            setItemsPriceChange={setItemsPriceChange}
+            totalPrice={props.totalPrice}
+            setTotalPrice={props.setTotalPrice}
+            name={props.name}
+            imagePath={props.imagePath}
+            price={props.price}
+            quantity={props.quantity}
+            id={props.id}
+            gestId={props.gestId}
+  
           />
         </div>
-        <button className={`mx-6 text-gray-500 ${style.deleteButtonItemCards}`}> 削除</button>
+        <button className={`mx-6 text-gray-500 ${style.deleteButtonItemCards}`} onClick={deleteItems}> 削除</button>
       </>
     )
   }

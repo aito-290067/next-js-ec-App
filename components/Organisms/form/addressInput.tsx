@@ -46,9 +46,9 @@ const Navigation = (props: any) => {
 }
 
 const Error = (props: any) => {
-  
-  if ( props.errorFlag === "true") {
-    if (props.value === "empty" || props.value === "init" ) {
+
+  if (props.errorFlag === "true") {
+    if (props.value === "empty" || props.value === "init") {
       return (
         <>
           <label className="Error text-red-500  ml-3 text-sm">{props.text}</label>
@@ -59,7 +59,7 @@ const Error = (props: any) => {
         <></>
       );
     }
-  }else{
+  } else {
     return <></>
   }
 }
@@ -68,44 +68,64 @@ export const AddressInput = (props: any) => {
 
   let address = ""
 
-  if(props.ordererAddress){
+  if (props.ordererAddress) {
     address = props.ordererAddress
+  } else {
+    address = props.addressValue
   }
 
   const onChangeHandler = (ev: ChangeEvent<HTMLInputElement>) => {
-    props.SetAddressValue(ev.target.value);
+    if (!props.ordererAddress) {
 
-    if(props.SetOrdererAddress){
-      props.SetOrdererAddress(ev.target.value);
+      props.SetAddressValue(ev.target.value);
+
+
+      if (!(ev.target.value)) {
+        props.SetAddressErrorState("empty");
+      } else {
+        props.SetAddressErrorState("ok");
+      }
     }
-    
-    if(!(ev.target.value)){
-      props.SetAddressErrorState("empty");  
-    }else{
-      props.SetAddressErrorState("ok");  
+  }
+
+  const onBlurHandler = (ev: ChangeEvent<HTMLInputElement>) => {
+    if (props.ordererAddress) {
+
+      props.SetAddressValue(ev.target.value);
+
+        props.SetOrdererAddress(ev.target.value);
+  
+
+      if (!(ev.target.value)) {
+        props.SetAddressErrorState("empty");
+      } else {
+        props.SetAddressErrorState("ok");
+      }
     }
- }
+  }
 
   return (
     <>
-       <div className="my-5 ml-5">
-            <div className="mb-2">
-              <label htmlFor="name">住所 </label>
-              <span className="bg-red-600 rounded-md p-1 text-sm text-white " style={{ fontSize: "12px" }}>必須</span>
-              <Error
-              text="住所を入力してください" 
-              value={props.addressErrorState}
-              errorFlag={ props.errorFlag} />
-            </div>
-            <div>
-              <input type="text" className="name border mr-4 py-1 px-3 rounded-md w-full h-10 focus:outline-none focus:ring-2 z-1" id="name" required style={{ width: "430px" }} onBlur={onChangeHandler}
-              placeholder="例）東京都中央区"
-              defaultValue={address}
-              />
-              
+      <div className="my-5 ml-5">
+        <div className="mb-2">
+          <label htmlFor="address">住所 </label>
+          <span className="bg-red-600 rounded-md p-1 text-sm text-white " style={{ fontSize: "12px" }}>必須</span>
+          <Error
+            text="住所を入力してください"
+            value={props.addressErrorState}
+            errorFlag={props.errorFlag} />
+        </div>
+        <div>
+          <input type="text" className="address border mr-4 py-1 px-3 rounded-md w-full h-10 focus:outline-none focus:ring-2 z-1" id="address" required style={{ width: "430px" }}
+            onBlur={onBlurHandler}
+            onChange={onChangeHandler}
+            placeholder="例）東京都中央区"
+            defaultValue={address}
+            autoComplete="street-address"
+          />
+        </div>
+      </div>
 
-            </div>
-          </div>
     </>
   )
 }

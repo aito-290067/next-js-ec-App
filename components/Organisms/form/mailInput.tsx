@@ -58,6 +58,10 @@ const Error = (props: any) => {
       return (
         <label className="Error text-red-500  ml-3 text-sm">xxx@xxxxの形式で入力してください</label>
       );
+    } else if (props.value === "registered") {
+      return (
+        <label className="Error text-red-500  ml-3 text-sm">このメールアドレスは使用されています</label>
+      );
     } else {
       return <></>
     }
@@ -73,7 +77,9 @@ export const MailInput = (props:any) => {
   let mail = ""
 
   if(props.ordererMail){
-    mail = props.ordererMail
+    mail = props.ordererMail;
+  }else{
+    mail = props.mailValue;
   }
 
   const onChangeHandler = (ev: ChangeEvent<HTMLInputElement>) => {
@@ -104,11 +110,27 @@ export const MailInput = (props:any) => {
     }
   }
 
+  const onBlurHandler = (ev: ChangeEvent<HTMLInputElement>) => {
+    if(props.mailErrorState === "ok" && props.register === "register"){
+      fetch(`http://localhost:8000/users?mail=${ev.target.value}`)
+      .then(response => response.json())
+      .then((data) => {
+        if (data.length !== 0) {
+          props.SetMailErrorState("registered");
+        }
+      })
+      .catch(error => {
+        console.log('error');
+      });
+    }
+  }
+
+
   return (
     <>
       <div className="my-5 ml-5">
         <div className="mb-2">
-          <label htmlFor="name">メールアドレス </label>
+          <label htmlFor="mail">メールアドレス </label>
           <span className="bg-red-600 rounded-md p-1 text-sm text-white " style={{ fontSize: "12px" }}>必須</span>
           <Error
             value={props.mailErrorState}
@@ -117,9 +139,12 @@ export const MailInput = (props:any) => {
             errorFlag={props.errorFlag} />
         </div>
         <div>
-          <input type="text" className="name border mr-4 py-1 px-3 rounded-md w-full focus:outline-none focus:ring-2 z-1 h-10" id="name" required style={{ width: "430px" }} onBlur={onChangeHandler} 
+          <input type="text" className="mail border mr-4 py-1 px-3 rounded-md w-full focus:outline-none focus:ring-2 z-1 h-10" id="mail" required style={{ width: "430px" }} 
+          onBlur={onBlurHandler} 
+          onChange={onChangeHandler}
           placeholder="例）mail@example.com"
           defaultValue={mail}
+          autoComplete="email"
           />
         </div>
 
