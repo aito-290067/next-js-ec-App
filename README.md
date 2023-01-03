@@ -1,4 +1,4 @@
-<div style="font-family: 'M PLUS Rounded 1c' ">
+<div >
 
 # お花屋さんのECサイト（個人）　作成中
 
