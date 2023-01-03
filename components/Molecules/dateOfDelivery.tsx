@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const DateOfDelivery = (props:any) => {
+export const DateOfDelivery = (props: {ordererDateState: {current: string[]} }) => {
 
 // 購入日をセット
   const  orderDate = new Date();

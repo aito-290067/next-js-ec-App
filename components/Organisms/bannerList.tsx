@@ -7,7 +7,7 @@ export const BannerList = () => {
     <>
       <div className=" mt-12">
         <ul>
-          {images.map((image: any, index: number) => {
+          {images.map((image: string, index: number) => {
             return (
               
                 <li className="mb-2" key={index}>
@@ -21,4 +21,3 @@ export const BannerList = () => {
     </>
   )
 }
-

@@ -6,7 +6,7 @@ import { useRef, useEffect } from 'react'
 
 
 
-export const Favorite = ({ data }: any) => {
+export const Favorite = ({ data } : any) => {
   const gestIdValue = useRef("")
 
   useEffect(() => {
@@ -71,7 +71,7 @@ export const Favorite = ({ data }: any) => {
   
 ">
               {
-                data.map((itemData: any, index: number) => {
+                data.map((itemData: {favoriteItem: {name:string,price:number, imagePath: string, id: number }}, index: number) => {
                   return (
                     <ItemCardsWrap name={itemData.favoriteItem.name} price={itemData.favoriteItem.price} imagePath={itemData.favoriteItem.imagePath} key={index} id={itemData.favoriteItem.id} favorite="favorite"/>
                   )

@@ -3,7 +3,7 @@ import TopRecognizeList from 'components/Organisms/topRecognizeList'
 import React from 'react'
 import RecognizeList from "../Organisms/recognizeList"
 
-export const RecognizeItesSection = (props: any) => {
+export const RecognizeItesSection = () => {
   return (
     <>
       <section>
@@ -15,7 +15,7 @@ export const RecognizeItesSection = (props: any) => {
     </>
   )
 }
-export const NewItemsSection = (props: any) => {
+export const NewItemsSection = () => {
   return (
     <>
       <section>
@@ -28,7 +28,7 @@ export const NewItemsSection = (props: any) => {
   )
 }
 
-export const ItemsSection = (props: any) => {
+export const ItemsSection = () => {
   return (
     <>
       <section>

@@ -1,6 +1,9 @@
+import { AnyRecord } from 'dns';
 import React, { ChangeEvent } from 'react'
+import { Error } from 'types/type';
+import { AddressTypes } from 'types/type';
 
-const Navigation = (props: any) => {
+const Navigation = (props: {value : string, text :string}) => {
 
   if (props.value.length > 0) {
     return (
@@ -45,7 +48,7 @@ const Navigation = (props: any) => {
   }
 }
 
-const Error = (props: any) => {
+const Error = (props: Error ) => {
 
   if (props.errorFlag === "true") {
     if (props.value === "empty" || props.value === "init") {
@@ -64,7 +67,7 @@ const Error = (props: any) => {
   }
 }
 
-export const AddressInput = (props: any) => {
+export const AddressInput = (props: AddressTypes) => {
 
   let address = ""
 
@@ -90,10 +93,11 @@ export const AddressInput = (props: any) => {
 
   const onBlurHandler = (ev: ChangeEvent<HTMLInputElement>) => {
     if (props.ordererAddress) {
-
       props.SetAddressValue(ev.target.value);
 
+      if(props.SetOrdererAddress){
         props.SetOrdererAddress(ev.target.value);
+      }
   
 
       if (!(ev.target.value)) {

@@ -1,6 +1,7 @@
 import React from 'react'
+import { PaymethodTypes } from 'types/type'
 
-export const PaymethodInput = (props:any) => {
+export const PaymethodInput = (props:PaymethodTypes) => {
   return (
     <div className="my-5 ml-5">
     <div className="mb-2">

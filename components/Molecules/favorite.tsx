@@ -3,7 +3,9 @@ import { useState, useEffect, useRef } from "react"
 import { useRouter } from "next/router"
 import Swal from 'sweetalert2'
 
-export const Favorite = (props: any) => {
+import { FavoriteItem } from "types/type"
+
+export const Favorite = (props: { favorite ?: string, data?: {favoriteItem?: FavoriteItem, gestId?: string, id?: number} }) => {
   const [favorite, SetFavorite] = useState(false)
   const [gestIdValue, SetGestIdValue] = useState("")
   const router = useRouter()

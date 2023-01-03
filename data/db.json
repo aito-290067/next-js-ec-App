@@ -25,7 +25,7 @@
       "price": "4050",
       "info": "乾燥に強く、耐陰性のある室内で育てやすい観葉植物です。",
       "imagePath": "/bouquet-red-bin.jpg",
-      "category": "花束・ブーケ",
+      "category": "花束・ブーケ　アレンジメント",
       "recommend": 4,
       "popular": 18,
       "id": 3
@@ -41,10 +41,10 @@
       "id": 4
     },
     {
-      "name": "冬のアレンジメント　ドライフラワー",
+      "name": "アレンジメント　ローズ　ホワイト系",
       "price": "4850",
       "info": "乾燥に強く、耐陰性のある室内で育てやすい観葉植物です。",
-      "imagePath": "/bouquet-winter.jpg",
+      "imagePath": "/rose-white-gerbera-orange-top.jpg",
       "category": "花束・ブーケ　ドライフラワー　アレンジメント",
       "recommend": 6,
       "popular": 16,
@@ -111,11 +111,11 @@
       "id": 11
     },
     {
-      "name": "ザミオクルカス・ザミフォーリア",
+      "name": "チューリップ　レッド系",
       "price": "5550",
       "info": "乾燥に強く、耐陰性のある室内で育てやすい観葉植物です。",
-      "imagePath": "/plant-up-3.jpg",
-      "category": "観葉植物",
+      "imagePath": "/bouquet-red-bin.jpg",
+      "category": "生花　アレンジメント",
       "recommend": 11,
       "popular": 9,
       "id": 12
@@ -181,20 +181,20 @@
       "id": 18
     },
     {
-      "name": "チューリップ　オレンジ系",
+      "name": "サボテン　多肉植物",
       "price": "3450",
       "info": "乾燥に強く、耐陰性のある室内で育てやすい観葉植物です。",
-      "imagePath": "/tulip-pink-bg-blue.jpg",
-      "category": "生花　アレンジメント",
+      "imagePath": "/cactus-bg-pink.jpg",
+      "category": "観葉植物　多肉植物",
       "recommend": 20,
       "popular": 2,
       "id": 19
     },
     {
-      "name": "チューリップ　オレンジ系",
+      "name": "ローズ　ピンク・ホワイト系",
       "price": "1850",
       "info": "乾燥に強く、耐陰性のある室内で育てやすい観葉植物です。",
-      "imagePath": "/tulip-pink-bg-blue.jpg",
+      "imagePath": "/bouquet-tulip-rose.jpg",
       "category": "生花　アレンジメント",
       "recommend": 19,
       "popular": 1,
@@ -210,6 +210,51 @@
       "imagePath": "/bouquet-red-bin.jpg",
       "gestId": "f93hdr9fg5o",
       "id": 1
+    },
+    {
+      "name": "アレンジメント　ローズ　赤系",
+      "price": "4050",
+      "orderPrice": "4050",
+      "quantity": 1,
+      "imagePath": "/bouquet-red-bin.jpg",
+      "gestId": "n3sone4473o",
+      "id": 2
+    },
+    {
+      "name": "冬のアレンジメント　ドライフラワー",
+      "price": "6850",
+      "orderPrice": "6850",
+      "quantity": 1,
+      "imagePath": "/bouquet-winter.jpg",
+      "gestId": "n3sone4473o",
+      "id": 3
+    },
+    {
+      "name": "冬のアレンジメント　ドライフラワー",
+      "price": "6850",
+      "orderPrice": "6850",
+      "quantity": 1,
+      "imagePath": "/bouquet-winter.jpg",
+      "gestId": "n3sone4473o",
+      "id": 4
+    },
+    {
+      "name": "ザミオクルカス・ザミフォーリア",
+      "price": "3850",
+      "orderPrice": "3850",
+      "quantity": 1,
+      "imagePath": "/plant-up-3.jpg",
+      "gestId": "n3sone4473o",
+      "id": 5
+    },
+    {
+      "name": "アレンジメント　ローズ　赤系",
+      "price": "4050",
+      "orderPrice": "4050",
+      "quantity": 1,
+      "imagePath": "/bouquet-red-bin.jpg",
+      "gestId": "1mgqiq7uq4g",
+      "id": 6
     }
   ],
   "users": [
@@ -223,7 +268,7 @@
       "tel": "123-1234-1234",
       "password": "ea2701fd4b7700e1671372ea4908c6656af35501388d0df115780bbd086afc78",
       "status": "login",
-      "gestId": "f93hdr9fg5o",
+      "gestId": "1mgqiq7uq4g",
       "id": 1
     }
   ],
@@ -271,7 +316,259 @@
         ]
       },
       "id": 1
+    },
+    {
+      "orderData": [
+        {
+          "name": "田中 太郎",
+          "lastName": "田中",
+          "firstName": "太郎",
+          "mail": "mail@example.com",
+          "zip": "214-0011",
+          "address": "東京都中央区",
+          "tel": "123-1234-1234",
+          "password": "ea2701fd4b7700e1671372ea4908c6656af35501388d0df115780bbd086afc78",
+          "status": "login",
+          "gestId": "n3sone4473o",
+          "id": 1
+        }
+      ],
+      "gestID": "n3sone4473o",
+      "ordererInformation": {
+        "name": "田中 太郎",
+        "mail": "mail@example.com",
+        "address": "東京都中央区",
+        "zip": "214-0011",
+        "tel": "123-1234-1234",
+        "orderDate": "2022-12-17",
+        "payMethod": "クレジット",
+        "totalPrice": 12150,
+        "DeliverySelect": "日時指定あり",
+        "DeliveryDate": "2022年12月30日",
+        "orderItems": [
+          [
+            {
+              "name": "アレンジメント　ローズ　赤系",
+              "price": "4050",
+              "orderPrice": 12150,
+              "quantity": 3,
+              "imagePath": "/bouquet-red-bin.jpg",
+              "gestId": "n3sone4473o",
+              "id": 2
+            }
+          ]
+        ]
+      },
+      "id": 2
+    },
+    {
+      "orderData": [
+        {
+          "name": "田中 太郎",
+          "lastName": "田中",
+          "firstName": "太郎",
+          "mail": "mail@example.com",
+          "zip": "214-0011",
+          "address": "東京都中央区",
+          "tel": "123-1234-1234",
+          "password": "ea2701fd4b7700e1671372ea4908c6656af35501388d0df115780bbd086afc78",
+          "status": "login",
+          "gestId": "n3sone4473o",
+          "id": 1
+        }
+      ],
+      "gestID": "n3sone4473o",
+      "ordererInformation": {
+        "name": "田中 太郎",
+        "mail": "mail@example.com",
+        "address": "東京都中央区",
+        "zip": "214-0011",
+        "tel": "123-1234-1234",
+        "orderDate": "2022-12-18",
+        "payMethod": "現金払い",
+        "totalPrice": 14950,
+        "DeliverySelect": "即日配送",
+        "DeliveryDate": "2022年12月19日",
+        "orderItems": [
+          [
+            {
+              "name": "アレンジメント　ローズ　赤系",
+              "price": "4050",
+              "orderPrice": 8100,
+              "quantity": 2,
+              "imagePath": "/bouquet-red-bin.jpg",
+              "gestId": "n3sone4473o",
+              "id": 2
+            },
+            {
+              "name": "冬のアレンジメント　ドライフラワー",
+              "price": "6850",
+              "orderPrice": "6850",
+              "quantity": 1,
+              "imagePath": "/bouquet-winter.jpg",
+              "gestId": "n3sone4473o",
+              "id": 3
+            }
+          ]
+        ]
+      },
+      "id": 3
     }
   ],
-  "favorite": []
+  "favorite": [
+    {
+      "favoriteItem": {
+        "name": "アレンジメント　ローズ　赤系",
+        "price": "4050",
+        "info": "乾燥に強く、耐陰性のある室内で育てやすい観葉植物です。",
+        "imagePath": "/bouquet-red-bin.jpg",
+        "category": "花束・ブーケ",
+        "recommend": 4,
+        "popular": 18,
+        "id": 3
+      },
+      "gestId": "n3sone4473o",
+      "id": 2
+    },
+    {
+      "favoriteItem": {
+        "name": "冬のアレンジメント　ドライフラワー",
+        "price": "4850",
+        "info": "乾燥に強く、耐陰性のある室内で育てやすい観葉植物です。",
+        "imagePath": "/bouquet-winter.jpg",
+        "category": "花束・ブーケ　ドライフラワー　アレンジメント",
+        "recommend": 6,
+        "popular": 16,
+        "id": 5
+      },
+      "gestId": "n3sone4473o",
+      "id": 3
+    },
+    {
+      "favoriteItem": {
+        "name": "アレンジメント　オレンジ系",
+        "price": "4850",
+        "info": "乾燥に強く、耐陰性のある室内で育てやすい観葉植物です。",
+        "imagePath": "/bouquet-1.jpg",
+        "category": "花束・ブーケ",
+        "recommend": 1,
+        "popular": 19,
+        "id": 2
+      },
+      "gestId": "n3sone4473o",
+      "id": 4
+    },
+    {
+      "favoriteItem": {
+        "name": "冬のアレンジメント　ドライフラワー　ピンク系",
+        "price": "6850",
+        "info": "乾燥に強く、耐陰性のある室内で育てやすい観葉植物です。",
+        "imagePath": "/dryflower-red.jpg",
+        "category": "花束・ブーケ　ドライフラワー　アレンジメント",
+        "recommend": 16,
+        "popular": 6,
+        "id": 15
+      },
+      "gestId": "n3sone4473o",
+      "id": 5
+    },
+    {
+      "favoriteItem": {
+        "name": "アレンジメント　オレンジ系",
+        "price": "4850",
+        "info": "乾燥に強く、耐陰性のある室内で育てやすい観葉植物です。",
+        "imagePath": "/bouquet-1.jpg",
+        "category": "花束・ブーケ",
+        "recommend": 1,
+        "popular": 19,
+        "id": 2
+      },
+      "gestId": "n3sone4473o",
+      "id": 9
+    },
+    {
+      "favoriteItem": {
+        "name": "ザミオクルカス・ザミフォーリア",
+        "price": "3850",
+        "info": "乾燥に強く、耐陰性のある室内で育てやすい観葉植物です。",
+        "imagePath": "/plant-up-3.jpg",
+        "category": "観葉植物",
+        "recommend": 2,
+        "popular": 20,
+        "id": 1
+      },
+      "gestId": "n3sone4473o",
+      "id": 10
+    },
+    {
+      "favoriteItem": {
+        "name": "アレンジメント　ローズ　赤系",
+        "price": "4050",
+        "info": "乾燥に強く、耐陰性のある室内で育てやすい観葉植物です。",
+        "imagePath": "/bouquet-red-bin.jpg",
+        "category": "花束・ブーケ",
+        "recommend": 4,
+        "popular": 18,
+        "id": 3
+      },
+      "gestId": "n3sone4473o",
+      "id": 11
+    },
+    {
+      "favoriteItem": {
+        "name": "ザミオクルカス・ザミフォーリア",
+        "price": "3850",
+        "info": "乾燥に強く、耐陰性のある室内で育てやすい観葉植物です。",
+        "imagePath": "/plant-2.jpg",
+        "category": "観葉植物",
+        "recommend": 3,
+        "popular": 17,
+        "id": 4
+      },
+      "gestId": "n3sone4473o",
+      "id": 12
+    },
+    {
+      "favoriteItem": {
+        "name": "アレンジメント　ローズ　赤系",
+        "price": "4050",
+        "info": "乾燥に強く、耐陰性のある室内で育てやすい観葉植物です。",
+        "imagePath": "/bouquet-red-bin.jpg",
+        "category": "花束・ブーケ",
+        "recommend": 4,
+        "popular": 18,
+        "id": 3
+      },
+      "gestId": "n3sone4473o",
+      "id": 13
+    },
+    {
+      "favoriteItem": {
+        "name": "ザミオクルカス・ザミフォーリア",
+        "price": "3850",
+        "info": "乾燥に強く、耐陰性のある室内で育てやすい観葉植物です。",
+        "imagePath": "/plant-2.jpg",
+        "category": "観葉植物",
+        "recommend": 3,
+        "popular": 17,
+        "id": 4
+      },
+      "gestId": "n3sone4473o",
+      "id": 14
+    },
+    {
+      "favoriteItem": {
+        "name": "ザミオクルカス・ザミフォーリア",
+        "price": "3850",
+        "info": "乾燥に強く、耐陰性のある室内で育てやすい観葉植物です。",
+        "imagePath": "/plant-up-3.jpg",
+        "category": "観葉植物",
+        "recommend": 2,
+        "popular": 20,
+        "id": 1
+      },
+      "gestId": "n3sone4473o",
+      "id": 15
+    }
+  ]
 }

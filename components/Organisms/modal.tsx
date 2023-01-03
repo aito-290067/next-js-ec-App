@@ -25,7 +25,7 @@ const customStyles = {
 // アプリのルートを識別するクエリセレクタを指定する。
 Modal.setAppElement('#__next')
 
-const ModalWindow = (props: any) => {
+const ModalWindow = (props: {state: boolean}) => {
   const [modalOpen, SetModalOpen] = useState(false)
 
   // モーダルを開く処理

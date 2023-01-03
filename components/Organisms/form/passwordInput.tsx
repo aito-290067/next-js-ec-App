@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect } from 'react'
+import { Error ,  PasswordTypes} from 'types/type'
 
-
-const Navigation = (props: any) => {
+const Navigation = (props: {value: string, text: string}) => {
 
   if (props.value.length > 0) {
     return (
@@ -46,7 +46,7 @@ const Navigation = (props: any) => {
   }
 }
 
-const Error = (props: any) => {
+const Error = (props: Error) => {
   if (props.errorFlag === "true") {
 
     if (props.value === "empty" || props.value === "init") {
@@ -73,14 +73,7 @@ const Error = (props: any) => {
   }
 }
 
-export const PasswordInput = (props: {
-  SetPasswordValue: any, SetPasswordErrorState: any, confirmPasswordValue: any,
-  SetConfirmPasswordErrorState: any,
-  passwordErrorState: any,
-  passwordValue: any,
-  errorFlag: any,
-  displayFlag: boolean
-}) => {
+export const PasswordInput = (props: PasswordTypes) => {
 
   const onChangeHandler = (ev: ChangeEvent<HTMLInputElement>) => {
     props.SetPasswordValue(ev.target.value);
@@ -93,7 +86,7 @@ export const PasswordInput = (props: {
       props.SetPasswordErrorState("ok")
     }
 
-    if (props.displayFlag == true) {
+    if (props.displayFlag === true) {
       if (ev.target.value !== props.confirmPasswordValue) {
         props.SetConfirmPasswordErrorState("mismatch")
       } else if (ev.target.value === props.confirmPasswordValue) {
@@ -102,8 +95,8 @@ export const PasswordInput = (props: {
     }
   }
 
-  const NavigationDisplay = (props: any) => {
-    if (props.displayFlag === "true") {
+  const NavigationDisplay = () => {
+    if (props.displayFlag === true) {
       return (
         <>
           <Navigation text="8文字以上16文字以内" value={props.passwordValue} />
@@ -123,8 +116,8 @@ export const PasswordInput = (props: {
           <Error
             text="パスワードを入力してください"
             value={props.passwordErrorState}
-            confirmPasswordValue={props.confirmPasswordValue}
-            SetPasswordErrorState={props.SetPasswordErrorState}
+            // confirmPasswordValue={props.confirmPasswordValue}
+            // SetPasswordErrorState={props.SetPasswordErrorState}
             errorFlag={props.errorFlag}
           
           />
@@ -138,7 +131,7 @@ export const PasswordInput = (props: {
           />
         </div>
 
-        <NavigationDisplay displayFlag={props.displayFlag} />
+        <NavigationDisplay  />
 
       </div>
     </>

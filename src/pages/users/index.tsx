@@ -87,7 +87,7 @@ const clear = () => {
 
       let password = `${passwordValue}flower`
 
-      const sha256 = async(text :any) => {
+      const sha256 = async(text :string) => {
         const msgUint8 = new TextEncoder().encode(text);                           // (utf-8 の) Uint8Array にエンコードする
         const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);           // メッセージをハッシュする
         const hashArray = Array.from(new Uint8Array(hashBuffer));                     // バッファーをバイト列に変換する

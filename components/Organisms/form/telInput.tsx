@@ -1,7 +1,8 @@
 import React, { ChangeEvent } from 'react'
 import { useEffect } from 'react';
+import { Error ,  TelTypes} from 'types/type'
 
-const Navigation = (props: any) => {
+const Navigation = (props: {value: string, text: string}) => {
 
   if (props.value.length > 0) {
     return (
@@ -46,7 +47,7 @@ const Navigation = (props: any) => {
   }
 }
 
-const Error4 = (props: any) => {
+const Error4 = (props: Error) => {
   if (props.errorFlag === "true") {
     if (props.value === "empty" || props.value === "init") {
       return (
@@ -66,7 +67,7 @@ const Error4 = (props: any) => {
   }
 }
 
-export const TelInput = (props: any) => {
+export const TelInput = (props: TelTypes) => {
 
   let tel = ""
 
@@ -117,7 +118,7 @@ export const TelInput = (props: any) => {
           <Error4
             value={props.telErrorState}
             text="電話番号を入力してください"
-            SetTelErrorState={props.SetTelErrorState}
+            // SetTelErrorState={props.SetTelErrorState}
             errorFlag={props.errorFlag} />
 
         </div>

@@ -5,6 +5,7 @@ import { useEffect } from "react"
 import { ChangeHistory } from "@material-ui/icons"
 import { Router, useRouter } from "next/router";
 import Link from "next/link"
+import { ItemCardsSideTypes, ItemCardsSideCount } from "types/type"
 
 const ItemCardsSideImage = (props: { imagePath: string }) => {
   return (
@@ -33,7 +34,7 @@ const ItemCardsSideName = (props: { name: string }) => {
   )
 }
 
-const ItemCardsSidePrice = (props: { price: any }) => {
+const ItemCardsSidePrice = (props: { price: number }) => {
   return (
     <>
       <div className=' text-center justify-center flex flex-wrap  items-center'>
@@ -53,7 +54,7 @@ const ItemCardsSideQuentity = (props: { quentity: number | string }) => {
   )
 }
 
-const ItemCardsSideCount = (props: any) => {
+const ItemCardsSideCount = (props: ItemCardsSideCount) => {
 
   // const router = useRouter();
   const change = () =>{
@@ -118,7 +119,7 @@ const ItemCardsSideCount = (props: any) => {
 
 
 
-export const ItemCardsSide = (props: any) => {
+export const ItemCardsSide = (props: ItemCardsSideTypes) => {
   const router = useRouter();
 
   const [quantityAdd, setQuantityAdd] = useState(1)

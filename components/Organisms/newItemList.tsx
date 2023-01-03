@@ -6,10 +6,11 @@ import style from "../../src/styles/itemList.module.css"
 import Image from 'next/image';
 import Head from 'next/head';
 import React, { useRef, useState } from "react";
+import { ItemCardsWrapRecognizeTypes } from 'types/type';
 
-const fetcher = (url: any) => fetch(url).then((res) => res.json());
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-export const NewItemsList = (props:any) => {
+export const NewItemsList = (props : {title?:string }) => {
 
   const router = useRouter();
   const { data, error, mutate } = useSWR(
@@ -42,7 +43,7 @@ export const NewItemsList = (props:any) => {
         <h5 className='sm:mb-5'>{props.title}</h5>
         <div className='grid grid-cols-2 sm:grid-cols-4  md:grid-cols-5 gap-y-3'>
           {
-            newItemList.map((items: any, index: number) => {
+            newItemList.map((items: ItemCardsWrapRecognizeTypes, index: number) => {
               return (
                 < ItemCardsWrapRecognize name={items.name} price={items.price} imagePath={items.imagePath} id={items.id} key={items.id} />
               );

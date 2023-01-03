@@ -11,10 +11,11 @@ import { SearchNavigationbar } from "components/Organisms/searchNavigationbar";
 import { Transform } from "@material-ui/icons";
 import ModalWindow from "../../../components/Organisms/modal"
 import Countup from 'react-countup'
+import { ItemCardsWrapRecognizeTypes } from "types/type";
 
 
 
-const fetcher = (url: any) => fetch(url).then((res) => res.json());
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export const Home = () => {
 
@@ -56,7 +57,7 @@ export const Home = () => {
   // console.log(categoryWord.length)
   const categoryitemList: any = [];
   // カテゴリ検索
-  data.map((ItemData: any, index: number) => {
+  data.map((ItemData: {category: any}, index: number) => {
     if (categoryWord !== "全ての商品") {
       if (ItemData.category.includes(categoryWord)) {
         categoryitemList.push(ItemData)
@@ -111,7 +112,7 @@ export const Home = () => {
 
   const itemList: any = [];
   // フォームで検索
-  categoryitemList.map((ItemData: any, index: number) => {
+  categoryitemList.map((ItemData: {name: string}, index: number) => {
     // Enterが押された時
     if (searchState === true) {
       // 検索ワードと一致した場合
@@ -147,7 +148,7 @@ export const Home = () => {
       return (
         <>
 
-          {data.map((itemData: any, index: number) => {
+          {data.map((itemData: ItemCardsWrapRecognizeTypes, index: number) => {
             return (
               <ItemCardsWrap name={itemData.name} price={itemData.price} imagePath={itemData.imagePath} key={index} id={itemData.id} />
             )
@@ -210,7 +211,11 @@ export const Home = () => {
 
           <div className="float-right " style={{ height: "100%" }}>
             <div className="container flex flex-wrap justify-center items-center mx-auto pt-5 px-5  ">
-              <SearchForm setSearchWord={setSearchWord} setSearchState={setSearchState} categoryWord={categoryWord} mutate={mutate} />
+              <SearchForm 
+                setSearchWord={setSearchWord} 
+                setSearchState={setSearchState} 
+                categoryWord={categoryWord} 
+                mutate={mutate} />
             </div>
             <div className=" flex flex-wrap justify-center items-center mr-36   ">
               <ErrorMessage />
@@ -280,7 +285,7 @@ export const Home = () => {
           
       ">
               {
-                itemList.map((itemData: any, index: number) => {
+                itemList.map((itemData:  ItemCardsWrapRecognizeTypes, index: number) => {
                   return (
                     <ItemCardsWrap name={itemData.name} price={itemData.price} imagePath={itemData.imagePath} key={index} id={itemData.id} data={itemData} />
                   )

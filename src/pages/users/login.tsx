@@ -7,6 +7,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 import ModalWindow from 'components/Organisms/modal'
 import Swal from 'sweetalert2'
+import { FiberNew } from '@material-ui/icons'
 
 
 
@@ -144,7 +145,7 @@ export const Home = () => {
               SetPasswordValue={SetPasswordValue}
               SetPasswordErrorState={SetPasswordErrorState}
               confirmPasswordValue={passwordValue}
-              SetConfirmPasswordErrorState={passwordErrorState}
+              SetConfirmPasswordErrorState={console.log}
               passwordErrorState={passwordErrorState}
               passwordValue={passwordValue}
               errorFlag={errorFlag}
@@ -158,7 +159,7 @@ export const Home = () => {
                   SetErrorFlag("true");
 
                   let password = `${passwordValue}flower`
-                  const sha256 = async(text :any) => {
+                  const sha256 = async(text :string) => {
                     const msgUint8 = new TextEncoder().encode(text);                           // (utf-8 の) Uint8Array にエンコードする
                     const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);           // メッセージをハッシュする
                     const hashArray = Array.from(new Uint8Array(hashBuffer));                     // バッファーをバイト列に変換する

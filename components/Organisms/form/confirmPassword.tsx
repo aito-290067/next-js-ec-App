@@ -1,6 +1,8 @@
 import { ChangeEvent } from "react";
+import { Error } from "types/type";
+import { ConfirmPasswordTypes } from "types/type";
 
-const ConfirmPasswordError = (props: any) => {
+const ConfirmPasswordError = (props: Error) => {
   if ( props.errorFlag === "true" ) {
     if (props.value === "empty" || props.value === "init") {
            return (
@@ -24,7 +26,7 @@ const ConfirmPasswordError = (props: any) => {
   }
 }
 
-export const ConfirmPasswordInput = (props: any) => {
+export const ConfirmPasswordInput = (props: ConfirmPasswordTypes) => {
   
   const onChangeHandler = (ev: ChangeEvent<HTMLInputElement>) => {
     props.SetConfirmPasswordValue(ev.target.value);
@@ -48,9 +50,9 @@ export const ConfirmPasswordInput = (props: any) => {
 
               <ConfirmPasswordError 
               text="確認用パスワードを入力してください" value={props.confirmPasswordErrorState} 
-              passwordValue={props.passwordValue} 
-              SetConfirmPasswordErrorState
-              ={props.SetConfirmPasswordErrorState}
+              // passwordValue={props.passwordValue} 
+              // SetConfirmPasswordErrorState
+              // ={props.SetConfirmPasswordErrorState}
               errorFlag={props.errorFlag}/>
             </div>
             <div>
