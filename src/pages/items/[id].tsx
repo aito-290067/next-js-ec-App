@@ -13,13 +13,13 @@ import Swal from 'sweetalert2'
 // const fetcher = (url: any) => fetch(url).then((res) => res.json());
 
 
-export const Details = ({ data }: { data: any
-  // { name: string, price: number, info: string, imagePath: string, id: any, quantity: number } 
+export const Details = ({ data }: { data: 
+  { name: string, price: number, info: string, imagePath: string, id: number, quantity: number , category:string} 
 }
 ) => {
   const router = useRouter();
   const [gestIdValue, SetGestIdValue] = useState("")
-  const list:any = [];
+  const list: Array<string[]> = [];
 
   useEffect(() => {
 
@@ -28,9 +28,9 @@ export const Details = ({ data }: { data: any
     for (let i = 0; i < splitCookie.length; i++) {
       list.push(splitCookie[i].split('='));
     }
-console.log(list)
+console.log(4,typeof(list))
 
-    list.map((cookieData:any, index:number) => {
+    list.map((cookieData:string[], index:number) => {
       // ゲストID取得
       if (cookieData.includes("gestId")) {
         SetGestIdValue(cookieData[1]);

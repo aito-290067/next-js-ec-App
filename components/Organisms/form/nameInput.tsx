@@ -1,7 +1,8 @@
 import React, { ChangeEvent } from 'react'
 import { useEffect } from 'react'
+import { NameError , NameTypes} from 'types/type'
 
-const Error3 = (props: any) => {
+const Error3 = (props: NameError) => {
   if (props.errorFlag === "true") {
     if (props.value1 === "empty" || props.value2 === "empty" || props.value1 === "init" || props.value2 === "init") {
       return (
@@ -20,7 +21,7 @@ const Error3 = (props: any) => {
 }
 
 
-export const NameInput = (props: any) => {
+export const NameInput = (props: NameTypes) => {
 
   // confirmでの初期値設定
   let lastName = ""
@@ -84,7 +85,7 @@ export const NameInput = (props: any) => {
   }
 
   const onBlurHandlerFirst = (ev: ChangeEvent<HTMLInputElement>) => {
-    if (props.SetOrdererLastName) {
+    if (props.SetOrdererLastName !== undefined) {
       props.SetFirstNameValue(ev.target.value);
 
       if (props.SetOrdererFirstName) {

@@ -66,7 +66,7 @@ const HeaderListGoogleIconList = (props: { name: string, path: string, list: any
         </span>
         {props.list}
         <label htmlFor="material-icons">
-        <p className="cursor-pointer"> {props.title}</p>
+          <p className="cursor-pointer"> {props.title}</p>
         </label>
       </li>
     </>
@@ -127,15 +127,19 @@ export const Header = () => {
     }
 
     // cookieにgestIDがセットされていな場合、付与する
-    list.map((data, index) => {
-      if (data[0].includes("gestId")) {
-        cookieList.push(data[0])
-      }
-      if (data[1].includes("login")) {
+    if (list.length !== 0) {
+      list.map((data, index) => {
+        if (data[0].includes("gestId")) {
+          cookieList.push(data[0])
+        }
+        if(data.length >= 2){
+          if (data[1].includes("login")) {
+            SetLoginState(true)
+          }
+        }
+      })
+    }
 
-        SetLoginState(true)
-      }
-    })
     if (cookieList.length === 0) {
       let randomId = Math.random().toString(32).substring(2);
       document.cookie = `gestId=${randomId}; path=/;`;
@@ -240,11 +244,11 @@ const LoginState = (props: any) => {
                 icon: 'success',
                 text: 'ログアウトしました！',
                 confirmButtonText: '　　OK　　',
-                confirmButtonColor : "#75ad9d"
+                confirmButtonColor: "#75ad9d"
               }
             )
             props.SetLoginState(false)
-            router.push("/items") 
+            router.push("/items")
           }}
         >ログアウト</button>
       </li>

@@ -12,7 +12,7 @@ import { Loader } from 'components/Atoms/loader';
 
 const fetcher = (url: any) => fetch(url).then((res) => res.json());
 
-export const ShoppingList = (props: any) => {
+export const ShoppingList = (props:{pageName: string}) => {
 
   const [gestIdValue, SetGestIdValue] = useState("")
   const [loginStatus, SetLoginStatus] = useState("")

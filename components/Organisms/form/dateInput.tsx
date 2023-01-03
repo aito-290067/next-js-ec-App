@@ -1,29 +1,28 @@
 import { useEffect } from '@storybook/addons'
-import React from 'react'
+import React, { FC } from 'react'
 import { useState, useRef } from 'react'
+import { DateTypes } from "types/type";
 
 
-const Error = (props: any) => {
-  // console.log("b",props.ordererDate)
-  // console.log("b",props.state)
+const Error = (props: { state: string | undefined; text: string; ordererDateState: any }) => {
 
+  console.log(2, typeof (props.ordererDateState))
   if (props.state === "日時指定あり") {
-    console.log("a", props.ordererDate)
-    console.log("a", props.state)
+
     if (props.ordererDateState[2] === undefined) {
       return (
         <>
           <label className="Error text-red-500  ml-3 text-sm">{props.text}</label>
         </>
       )
-    } else if(props.ordererDateState[1] === "impossible"){
+    } else if (props.ordererDateState[1] === "impossible") {
       return (
         <>
-        <label className="Error text-red-500  ml-3 text-sm">６日後以降を選択してください。</label>
-      </>
+          <label className="Error text-red-500  ml-3 text-sm">６日後以降を選択してください。</label>
+        </>
       );
-    }else{
-      return(
+    } else {
+      return (
         <></>
       )
     }
@@ -34,12 +33,19 @@ const Error = (props: any) => {
 
 
 
-export const DateInput = (props: any) => {
+export const DateInput = (props: {
+  // ordererDateState: { current: string[] } ,
+  ordererDateState: any ,
+  SetDateErrorState: Function | FC<{}> | undefined,
+  SetOrdererDate: Function | FC<{}> | undefined,
+  ordererDate: string | undefined,
+  errorFlag: string
+}) => {
 
-  const [state, SetState] = useState(props.ordererDateState.current[1])
-  // SetOrdererDate={SetOrdererDate}
-  // ordererDate={ordererDate}
-  const Input = (props: any) => {
+  const [state, SetState] = useState(props?.ordererDateState?.current[1])
+
+  const Input = () => {
+    console.log(1, typeof (props.SetDateErrorState))
 
     // 2073617790
     if (state === "日時指定あり") {
@@ -69,20 +75,20 @@ export const DateInput = (props: any) => {
                   currentDate.setHours(0, 0, 0);
 
                   // 選択された日付を指定
-                  let split =  props.ordererDateState.current[2].split('-');
+                  let split = props.ordererDateState.current[2].split('-');
                   Specified.setFullYear(Number(split[0]));
                   Specified.setMonth(Number(split[1]));
                   Specified.setDate(Number(split[2]));
                   Specified.setHours(0, 0, 0);
-                  console.log("c",Number(Specified), Number(currentDate), (Number(Specified) - Number(currentDate)))
+                  console.log("c", Number(Specified), Number(currentDate), (Number(Specified) - Number(currentDate)))
                   // ６日後以降を選択しているか
                   if (
                     Number(Specified) - Number(currentDate) <=
                     518400017
-                    ) {
+                  ) {
                     props.ordererDateState.current[1] = "impossible"
                     console.log("no")
-                  }else{
+                  } else {
                     props.ordererDateState.current[1] = "ok"
                     // props.SetDateErrorState("ok")
                   }
@@ -98,9 +104,6 @@ export const DateInput = (props: any) => {
     }
   }
 
-
-  // console.log(props.ordererDateState.current)
-
   return (
     <>
       <div className="my-5 ml-5">
@@ -109,10 +112,11 @@ export const DateInput = (props: any) => {
           <span className="bg-red-600 rounded-md p-1 text-sm text-white " style={{ fontSize: "12px" }}>必須</span>
           <Error
             text="配達日（６日後以降）を選択してください"
-            SetDateErrorState={props.SetDateErrorState}
+            // SetDateErrorState={props.SetDateErrorState}
             ordererDateState={props.ordererDateState}
             state={state}
-            errorFlag={props.errorFlag} />
+          // errorFlag={props.errorFlag}
+          />
         </div>
         <div>
 
@@ -168,7 +172,11 @@ export const DateInput = (props: any) => {
           </label>
 
           {/* 指定ありが選択されたら表示 */}
-          <Input SetDateErrorState={props.SetDateErrorState} SetOrdererDate={props.SetOrdererDate} ordererDateState={props.ordererDateState} />
+          <Input
+            // SetDateErrorState={props.SetDateErrorState} 
+            // SetOrdererDate={props.SetOrdererDate}
+            //  ordererDateState={props.ordererDateState} 
+             />
 
         </div>
       </div>

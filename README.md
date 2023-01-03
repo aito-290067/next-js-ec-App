@@ -1,9 +1,18 @@
+<div style="font-family: 'M PLUS Rounded 1c' ">
+
 # お花屋さんのECサイト（個人）　作成中
+
+<div align="center">
 架空のECサイトです。
 機能実装中です。
+</div>
 
+<br/>
+<br/>
 
-## 使用言語・フレームワーク・ライブラリ
+##  ―　<span style="color: #75ad9d;">使用言語・フレームワーク・ライブラリ</span>　―
+<br/>
+
 - Next.js
 - TypeScript
 - Tailwind CSS
@@ -11,8 +20,11 @@
 - Sweetalert2
 - react-countup
 
+<br />
 
-##  画面構成
+##  ―　<span style="color: #75ad9d;">画面構成</span>　―
+<br />
+
 1. 商品詳細画面
 1. 商品一覧画面
 1. トップ画面
@@ -23,18 +35,53 @@
 1. 注文完了画面
 1. お気に入り画面
 
-## Demo
-### 商品一覧画面
-![alt用テキスト](/public/商品一覧画面3.png)
+<br />
 
-### トップ画面
-![alt用テキスト](/public/トップ画面3.png)
+## ―　<span style="color: #75ad9d;">Demo</span>　―
 
-### 商品詳細画面
-![alt用テキスト](/public/商品詳細画面3.png)
+<br />
 
-### カート画面
-![alt用テキスト](/public/ショッピングカート3.png)
+<div align="center"　>
 
-### 新規登録画面
-![alt用テキスト](/public/新規登録画面3.png)
+###  ――　商品一覧画面　――
+
+![商品一覧画面](/public/商品一覧画面3.png)
+
+<br />
+<br />
+<br />
+
+### ――　トップ画面　――
+
+<br />
+
+![トップ画面](/public/トップ画面3.png)
+
+<br />
+<br />
+<br />
+
+### ――　商品詳細画面　――
+
+![商品詳細画面](/public/商品詳細画面3.png)
+
+<br />
+<br />
+<br />
+
+### ――　カート画面　――
+
+
+![ショッピングカート画面](/public/ショッピングカート3.png)
+
+<br />
+<br />
+<br />
+
+### ――　新規登録画面　――
+
+![新規登録画面](/public/新規登録画面3.png)
+
+</div>
+
+</div>

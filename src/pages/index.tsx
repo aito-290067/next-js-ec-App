@@ -16,7 +16,7 @@ import { SearchNavigationbar } from "components/Organisms/searchNavigationbar";
 import { Slide } from "components/Molecules/swiper";
 import { SlideCursor } from "components/Molecules/swiperCursor";
 
-export const Home = ({data}:any) => {
+export const Home = ({data}: any) => {
 
   const router = useRouter();
 

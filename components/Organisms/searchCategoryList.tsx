@@ -3,7 +3,7 @@ import React from 'react'
 import { useRouter } from "next/router";
 
 
-export const SearchCategoryList = (props: any) => {
+export const SearchCategoryList = () => {
 
   const router = useRouter();
 
@@ -33,7 +33,7 @@ export const SearchCategoryList = (props: any) => {
             </li>
           </label>
 
-          {categoryList.map((CategoryData: any, index: number) => {
+          {categoryList.map((CategoryData: string, index: number) => {
             return (
               <label htmlFor={CategoryData} key={index}>
                 <li className="border-l-2 border-r-2 border-b-2 border-gray-100 py-2 pl-2 ">

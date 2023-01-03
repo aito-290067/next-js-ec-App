@@ -17,7 +17,7 @@ import { createContext } from 'react';
 import { anyTypeAnnotation } from '@babel/types';
 
 
-const fetcher = (url: any) => fetch(url).then((res) => res.json());
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export const UserName = createContext("")
 
@@ -176,7 +176,8 @@ export const Home = () => {
         <>
 
           <ConfirmFrom
-            lastNameValue={lastNameValue} SetLastNameValue={SetLastNameValue}
+            lastNameValue={lastNameValue} 
+            SetLastNameValue={SetLastNameValue}
             firstNameValue={firstNameValue}
             SetFirstNameValue={SetFirstNameValue}
             firstNameErrorState={firstNameErrorState} SetFirstNameErrorState={SetFirstNameErrorState}
@@ -188,9 +189,14 @@ export const Home = () => {
             mailErrorState={mailErrorState} SetMailErrorState={SetMailErrorState}
             displayFlag={true}
 
-            telValue={telValue} SetTelValue={SetTelValue} telErrorState={telErrorState} SetTelErrorState={SetTelErrorState}
+            telValue={telValue} 
+            SetTelValue={SetTelValue} telErrorState={telErrorState} 
+            SetTelErrorState={SetTelErrorState}
 
-            zipValue={zipValue} SetZipValue={SetZipValue} zipErrorState={zipErrorState} SetZipErrorState={SetZipErrorState}
+            zipValue={zipValue} 
+            SetZipValue={SetZipValue} 
+            zipErrorState={zipErrorState} 
+            SetZipErrorState={SetZipErrorState}
 
             addressValue={addressValue}
             SetAddressValue={SetAddressValue} addressErrorState={addressErrorState} SetAddressErrorState={SetAddressErrorState}

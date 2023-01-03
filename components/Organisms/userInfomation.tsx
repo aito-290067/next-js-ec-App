@@ -1,11 +1,11 @@
 import useSWR, { useSWRConfig } from 'swr';
 import React, { useState, useEffect } from 'react';
 import { useRouter } from "next/router";
+import { UserInfo } from 'types/type';
 
 
 
-
-export const UserInfomation = (props: any) => {
+export const UserInfomation = (props: UserInfo) => {
 
   if (!props.name) return (
     <></>

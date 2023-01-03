@@ -5,11 +5,12 @@ import { ItemCardsWrapRecognize } from "../Organisms/itemCards-wrap";
 import style from "../../src/styles/itemList.module.css"
 import Image from 'next/image';
 import Head from 'next/head';
-import React, { useRef, useState } from "react";
+import React, { FC, useRef, useState } from "react";
+import { ItemCardsWrapRecognizeTypes } from 'types/type';
 
-const fetcher = (url: any) => fetch(url).then((res) => res.json());
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-export const RecognizeList = (props:any) => {
+export const RecognizeList = (props:{category: string, itemId: number, title: string}) => {
 
   const router = useRouter();
   const { data, error, mutate } = useSWR(
@@ -28,11 +29,11 @@ export const RecognizeList = (props:any) => {
     </>
   );
   
-  const categoryitemList:any = []
+  const categoryitemList: any = []
   const recommendItemList = [];
   
   if(props.category){
-    data.map((items:any,incdex:number)=>{
+    data.map((items:{category: string, id: number},incdex:number)=>{
       if((props.category.includes(items.category) || items.category.includes(props.category) ) && props.itemId !== items.id){
         categoryitemList.push(items)
       }
@@ -56,7 +57,7 @@ export const RecognizeList = (props:any) => {
         recommendItemList.push(categoryitemList[i])
       }
   }
-    console.log("b",recommendItemList.length)
+    // console.log("b",recommendItemList.length)
 
   }else{
     data.sort(function (a: any, b: any) {
@@ -101,7 +102,7 @@ console.log("c",recommendItemList)
         <h5 className='sm:mb-5'>{props.title}</h5>
         <div className='flex  '>
           {
-            recommendItemList.map((items: any, index: number) => {
+            recommendItemList.map((items:ItemCardsWrapRecognizeTypes, index: number) => {
               return (
                 < ItemCardsWrapRecognize name={items.name} price={items.price} imagePath={items.imagePath} id={items.id} key={items.id} />
               );

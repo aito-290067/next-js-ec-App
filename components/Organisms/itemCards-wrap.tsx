@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Favorite } from "../Molecules/favorite";
 import style from "../../src/styles/itemListWrap.module.css"
-
+import { ItemCardsWrapTypes , ItemCardsWrapRecognizeTypes} from "types/type";
 
 // const ItemCardsWrapName = (props: any) => {
 //   if (props.name.length <= 5 || props.name.includes(" ")) {
@@ -32,7 +32,7 @@ import style from "../../src/styles/itemListWrap.module.css"
 //   }
 // }
 
-export const ItemCardsWrap = (props: any) => {
+export const ItemCardsWrap = (props: ItemCardsWrapTypes) => {
   return (
 
     <div className="w-48 h-80  rounded-lg   shadow-lg  cursor-pointer">
@@ -91,7 +91,7 @@ export const ItemCardsWrap = (props: any) => {
 }
 
 
-export const ItemCardsWrapRecognize = (props: any) => {
+export const ItemCardsWrapRecognize = (props: ItemCardsWrapRecognizeTypes) => {
   let id = props.id
   return (
 

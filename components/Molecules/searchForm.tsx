@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-export const SearchForm = (props: any) => {
+export const SearchForm = (props: {categoryWord:string | string[], setSearchWord: Function, setSearchState: Function, mutate?: Function}) => {
 
   return (
     <>

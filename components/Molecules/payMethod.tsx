@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const PayMethod = (props:any) => {
+export const PayMethod = (props:{ordererPayMethod :string}) => {
   return (
     <>
       <div>

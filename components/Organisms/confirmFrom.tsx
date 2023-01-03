@@ -8,8 +8,9 @@ import { NameInput } from 'components/Organisms/form/nameInput'
 import PaymethodInput from './form/paymethodInput'
 import { useState } from 'react'
 import { DateInput } from './form/dateInput'
+import { ConfirmFromTypes } from 'types/type'
 
-export const ConfirmFrom = (props: any) => {
+export const ConfirmFrom = (props: ConfirmFromTypes ) => {
 
 
   return (
@@ -31,6 +32,7 @@ export const ConfirmFrom = (props: any) => {
             SetOrdererLastName={props.SetOrdererLastName}
             ordererLastName={props.ordererLastName}
             ordererFirstName={props.ordererFirstName}
+            displayFlag = {false}
           // SetOrdererName={props.SetOrdererName}
           />
           <hr />
@@ -67,7 +69,8 @@ export const ConfirmFrom = (props: any) => {
           SetDateErrorState={props.SetDateErrorState} 
           SetOrdererDate={props.SetOrdererDate}
           ordererDate={props.ordererDate}
-          errorFlag={props.errorFlag}  />
+          errorFlag={props.errorFlag}  
+          />
 
 
           <div className="items-center justify-center flex flex-wrap my-4 ">

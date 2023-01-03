@@ -1,7 +1,8 @@
 import React, { ChangeEvent } from 'react'
 import { useEffect } from 'react';
+import { Error , MailTypes} from "types/type";
 
-const Navigation = (props: any) => {
+const Navigation = (props: {value: string, text: string}) => {
 
   if (props.value.length > 0) {
     return (
@@ -46,7 +47,7 @@ const Navigation = (props: any) => {
   }
 }
 
-const Error = (props: any) => {
+const Error = (props: Error) => {
   if (props.errorFlag === "true") {
     if (props.value === "empty" || props.value === "init") {
       return (
@@ -72,7 +73,7 @@ const Error = (props: any) => {
 
 
 
-export const MailInput = (props:any) => {
+export const MailInput = (props:MailTypes) => {
 
   let mail = ""
 
@@ -98,7 +99,7 @@ export const MailInput = (props:any) => {
     }
   }
 
-  const NavigationDisplay = (props: any) => {
+  const NavigationDisplay = () => {
     if (props.displayFlag === true) {
       return (
         <>
@@ -135,7 +136,7 @@ export const MailInput = (props:any) => {
           <Error
             value={props.mailErrorState}
             text="メールアドレスを入力してください"
-            SetMailErrorState={props.SetMailErrorState}
+            // SetMailErrorState={props.SetMailErrorState}
             errorFlag={props.errorFlag} />
         </div>
         <div>
@@ -148,7 +149,7 @@ export const MailInput = (props:any) => {
           />
         </div>
 
-        <NavigationDisplay displayFlag={props.displayFlag} mailValue={props.mailValue} />
+        <NavigationDisplay   />
 
       </div>
     </>
